@@ -1,13 +1,26 @@
 import { observer } from 'mobx-react';
 import React from 'react';
-
 import "./App.css";
+import Game from './components/Game';
+import Link from "./components/Link";
+import Menu from "./components/Menu";
+import Switch from './components/Switch';
+import store from "./Store";
 
 
 export const App: React.FC = observer(() => {
     return (
-        <div className="bg flex-in-col">
-            poker-final-project works!
+        <div className="game-background">
+            {
+                store.currentPage !== "Menu" &&
+                <div className="backButton_container">
+                    <Link text="⬅ back to menu" page="Menu" />
+                </div>
+            }
+            <Switch activePage={store.currentPage} >
+                <Menu name="Menu" />
+                <Game name="Game" />
+            </Switch>
         </div>
     )
 });

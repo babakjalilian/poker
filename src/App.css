@@ -5,8 +5,8 @@
   --btn-red-hover: #571c1c;
   --btn-green-base: #276627;
   --btn-green-hover: #368536;
+  --bg-green: #164b16;
   --bg-darkgreen: #1a341a;
-  --bg-green: rgb(22, 75, 22);
   --transparent: #ffffff00;
 }
 
@@ -18,14 +18,16 @@ body {
   font-size: 17px;
 }
 
-.bg {
-  width: 100vw;
+.game-background {
+  width: 100%;
   height: 100vh;
+  min-height: 500px;
   background-color: var(--bg-green);
 }
 
-.flex-in-col {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+.backButton_container {
+  display: 'flex';
+  position: absolute;
+  top: 0;
+  left: 0;
 }
