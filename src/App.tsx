@@ -18,7 +18,7 @@ export const App: React.FC = observer(() => {
                     <Link text="⬅ back to menu" page="Menu" />
                 </div>
             }
-            <Card value={'10'} symbol={"♠"} isFaded={false} isHidden={false} />
+            {/* <Card value={'10'} suit={"♠"} isFaded={true} isHidden={false} /> */}
             <Switch activePage={store.currentPage} >
                 <Menu name="Menu" />
                 <Game name="Game" />

@@ -1,13 +1,19 @@
 :root {
   --btn-blue-base: #244767;
   --btn-blue-hover: #1b4266;
-  --btn-red-base: #702424;
-  --btn-red-hover: #571c1c;
+  --bg-red: #702424;
+  --btn-red: #571c1c;
   --btn-green-base: #276627;
   --btn-green-hover: #368536;
   --bg-green: #164b16;
   --bg-darkgreen: #1a341a;
   --transparent: #ffffff00;
+  --btn-red-hover:#420000;
+}
+
+html, body , #root, .game-background{
+  height: 100%;
+  width: 100%;
 }
 
 body {
@@ -19,15 +25,14 @@ body {
 }
 
 .game-background {
-  width: 100%;
-  height: 100vh;
-  min-height: 500px;
-  background-color: var(--bg-green);
+  min-height: 600px;
+  min-width: 900px;
+  background-color: var(--bg-red);
 }
 
 .backButton_container {
-  display: 'flex';
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 2;
 }

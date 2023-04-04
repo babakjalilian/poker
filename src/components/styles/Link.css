@@ -6,7 +6,7 @@
   align-items: center;
   border-radius: 3px;
   height: 20px;
-  background-color: var(--btn-green-base);
+  background-color: var(--btn-red);
   -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
@@ -16,5 +16,5 @@
 }
 
 .btn:hover {
-  background-color: var(--btn-green-hover);
+  background-color: var(--btn-red-hover);
 }

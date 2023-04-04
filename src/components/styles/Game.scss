@@ -1,0 +1,109 @@
+$poker-table-color-dark: #073602;
+$poker-table-color-light: #36aa25;
+$poker-table-outside-ring-color: #873e16;
+$poker-table-outside-ring-border-color: #c29f41;
+$white-color: #ffffff;
+
+.poker-container {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    /* padding: 5%; */
+    box-sizing: border-box;
+    position: relative;
+
+    .poker-table {
+        position: absolute;
+        top: calc(5% + 100px);
+        bottom: calc(5% + 100px);
+        right: calc(10% + 100px);
+        left: calc(10% + 100px);
+        justify-self: center;
+        align-self: center;
+        // position: relative;
+        // width: 70%;
+        // height: 70%;
+        background-color: $poker-table-outside-ring-color;
+        border-radius: 180px;
+        box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.75), inset 0px 0px 22px 2px rgba(0, 0, 0, 0.75);
+        // box-shadow: 10px 10px 200px 0px rgba(0, 0, 0, 0.55), inset 0px 0px 18px 4px rgba(0, 0, 0, 0.75);
+    }
+    .inside-ring {
+        position: absolute;
+        top: calc(13% + 100px);
+        bottom: calc(13% + 100px);
+        right: calc(15% + 100px);
+        left: calc(15% + 100px);
+        // width: calc(100% - 200px);
+        // height: calc(100% - 200px);
+        // position: absolute;
+        // top: 50%;
+        // left: 50%;
+        border: 5px rgba($white-color, 0.5) solid;
+        justify-self: center;
+        align-self: center;
+        border-radius: 180px;
+        // transform: translate(-50%, -50%);
+    }
+
+    .outside-ring {
+        position: absolute;
+        top: calc(9% + 100px);
+        bottom: calc(9% + 100px);
+        right: calc(13% + 100px);
+        left: calc(13% + 100px);
+
+        // position: absolute;
+        // width: calc(100% - 100px);
+        // height: calc(100% - 80px);
+        // top: 50%;
+        // left: 50%;
+        background: $poker-table-color-light;
+        background: radial-gradient(circle, $poker-table-color-light -30%, $poker-table-color-dark 90%);
+        border-radius: 180px;
+        justify-self: center;
+        align-self: center;
+        border: 5px $poker-table-outside-ring-border-color solid;
+        // transform: translate(-50%, -50%);
+    }
+    .card-container-topmid {
+        position: absolute;
+        top: 5%;
+        // transform: translate(-50%, -50%);
+        // width: 200px;
+        // height: 200px;
+        // background-color: yellow;
+    }
+
+    .card-container-midleft {
+        position: absolute;
+        // top: 50%;
+        left: 10%;
+        // transform: translate(-50%, -50%);
+        // width: 200px;
+        // height: 200px;
+        // background-color: yellow;
+    }
+
+    .card-container-midright {
+        position: absolute;
+        // top: 50%;
+        right: 10%;
+        // transform: translate(50%, -50%);
+        // width: 200px;
+        // height: 200px;
+        // background-color: yellow;
+    }
+
+    .card-container-botmid {
+        position: absolute;
+        // left: 50%;
+        bottom: 5%;
+        // transform: translate(-50%, 50%);
+        // width: 200px;
+        // height: 200px;
+        // background-color: yellow;
+    }
+}
