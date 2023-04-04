@@ -3,9 +3,10 @@
   height: 120px;
   border-radius: 5px;
   background-color: white;
-  padding: 7px 9px;
+  padding: 5px 5px;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -13,6 +14,17 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.card-hidden {
+  background-image: url("../../textures/card_hidden_red.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.card-faded {
+  opacity: 0.3;
 }
 
 .card-value {
@@ -26,7 +38,7 @@
   transform: rotateZ(180deg);
 }
 
-.card-symbol {
+.card-suit {
   display: flex;
   flex: 1;
   justify-content: center;
@@ -34,13 +46,6 @@
   font-size: 4.5em;
   margin-top: -30px;
   margin-bottom: -20px;
-}
-
-.cardOutside {
-  background-image: url('../../textures/card_hidden_red.svg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
 }
 
 .red {

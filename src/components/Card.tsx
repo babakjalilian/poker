@@ -6,19 +6,18 @@ import "./styles/Card.css";
 
 export interface CardProps {
     value: CardNameSymbol,
-    symbol: SuitSymbol,
+    suit: SuitSymbol,
     isFaded: boolean,
     isHidden: boolean,
 }
 
-const Card: React.FC<CardProps> = observer(({ value, symbol, isFaded, isHidden }) => {
+const Card: React.FC<CardProps> = observer(({ value, suit, isFaded, isHidden }) => {
     const redSuits: SuitSymbol[] = ["♦", "♥"];
-    const isRed = redSuits.includes(symbol);
-    const shownCardClassNames = `card ${isRed ? "red" : "black"} ${isFaded ? "fadedCard" : ""}`;
-    const hiddenCardClassNames = `card cardOutside`;
+    const isRed = redSuits.includes(suit);
+    const shownCardClassNames = `card ${isRed ? "red" : "black"} ${isFaded ? "card-faded" : ""}`;
 
     if (isHidden) {
-        return <div className={hiddenCardClassNames}></div>
+        return <div className="card card-hidden"></div>
     }
     // <div className={cardClassNames} >
     return (
@@ -26,8 +25,8 @@ const Card: React.FC<CardProps> = observer(({ value, symbol, isFaded, isHidden }
             <div className="card-value">
                 {value}
             </div>
-            <div className="card-symbol">
-                {symbol}
+            <div className="card-suit">
+                {suit}
             </div>
             <div className="card-value reverse" >
                 {value}
