@@ -1,0 +1,41 @@
+.gameTable {
+    position: relative;
+    width: 550px;
+    height: 250px;
+    border-radius: 500px;
+    /* padding: 70px 100px; */
+    padding-top: 1.5rem;
+    box-sizing: border-box;
+  
+  
+    background-color: var(--bg-darkgreen);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* gap: 30px; */
+  
+    margin: auto;
+  }
+
+  .tableCardsContainer {
+    display: flex;
+    justify-content: center;
+  
+    gap: 10px;
+  
+  }
+
+  .tableInfo{
+    margin-top: 10px;
+    font-size: 1.8em;
+    font-weight: 600;
+  }
+
+  .gameInfo{
+    margin-top: 10px;
+  }
+
+  .gameInfo ul{
+    margin: 0;
+  }
