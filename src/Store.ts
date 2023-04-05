@@ -2,15 +2,31 @@ import { makeAutoObservable } from "mobx";
 import { PageName, StoreType } from "./types";
 
 class Store implements StoreType {
-    currentPage: PageName = "Menu";
+  currentPage: PageName = "Menu";
 
-    constructor() {
-        makeAutoObservable(this);
-    }
+  amountOfHumanPlayers: number = 3;
+  minimumBet = 10;
+  initialDeposit = 100;
 
-    startInitialGame() {
-        console.log("game started")
-    }
+  constructor() {
+    makeAutoObservable(this);
+  }
+
+  startInitialGame() {
+    console.log("game started");
+  }
+
+  setPlayersCount(amountOfPlayers: number) {
+    this.amountOfHumanPlayers = amountOfPlayers;
+  }
+
+  setMinimumBet(minimumBet: number) {
+    this.minimumBet = minimumBet;
+  }
+
+  setInitialDeposit(initialDeposit: number) {
+    this.initialDeposit = initialDeposit;
+  }
 }
 
 const store = new Store();

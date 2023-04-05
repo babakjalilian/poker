@@ -1,6 +1,7 @@
 import { observer } from "mobx-react";
 import React, { useEffect } from "react";
 import store from "../Store";
+import GameTable from "./GameTable";
 import Player from "./Player";
 import "./styles/Game.scss";
 
@@ -19,16 +20,21 @@ const Game: React.FC<GameProps> = observer(() => {
         <div className="poker-table"></div>
         <div className="outside-ring"></div>
         <div className="inside-ring"></div>
-        <div className="card-container-topmid">
+        <div className="card-container card-container-topmid">
           <Player playerId={2} />
         </div>
-        <div className="card-container-midleft">
+        <div className="card-container card-container-midleft">
           <Player playerId={1} />
         </div>
-        <div className="card-container-midright">
+
+        <div>
+          <GameTable />
+        </div>
+
+        <div className="card-container card-container-midright">
           <Player playerId={3} />
         </div>
-        <div className="card-container-botmid">
+        <div className="card-container card-container-botmid">
           <Player playerId={0} />
         </div>
       </div>
