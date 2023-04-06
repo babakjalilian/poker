@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import React from 'react';
-import { CardNameSymbol, SuitSymbol } from '../types';
-import "./styles/Card.css";
+import { CardNameSymbol, SuitSymbol } from '../../../types';
+import "./Card.css";
 
 
 export interface CardProps {

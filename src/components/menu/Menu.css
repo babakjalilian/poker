@@ -9,13 +9,13 @@
   height: 100%;
   /* background-image: url("../../textures/card_image.png"); */
   background-repeat: no-repeat;
-background-position-x: 45%;
-background-position-y: 55%;
-background-size: 30%;
+  background-position-x: 45%;
+  background-position-y: 55%;
+  background-size: 30%;
 }
 
-.background-image{
-  padding-top: 100px;
-    width: 550px;
-    padding-right: 10px;
+.background-image {
+  padding-top: 80px;
+  width: 550px;
+  padding-right: 10px;
 }

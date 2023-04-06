@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
-import store from "../Store";
-import { PageName } from "../types";
-import "./styles/Link.css";
+import store from "../../Store";
+import { PageName } from "../../types";
+import "./Link.css";
 
 interface LinkProps {
     text: string,

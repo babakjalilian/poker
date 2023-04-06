@@ -17,7 +17,7 @@
 }
 
 .card-hidden {
-  background-image: url("../../textures/card_hidden_red.svg");
+  background-image: url('../../../textures/card_hidden_red.svg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
