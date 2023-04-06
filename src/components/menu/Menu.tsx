@@ -2,7 +2,7 @@ import { observer } from "mobx-react";
 import React from "react";
 import Link from "../link-button/Link";
 import GameName from "./game-name/GameName";
-import "./Menu.css";
+import "./Menu.scss";
 
 interface MenuProps {
     name: string;

@@ -1,7 +1,7 @@
 import { observer } from "mobx-react";
 import React from "react";
 import Card from "../card/Card";
-import "./GameTable.css";
+import "./GameTable.scss";
 
 const GameTable: React.FC = observer(() => {
     return (

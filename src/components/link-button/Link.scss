@@ -13,8 +13,7 @@
   -ms-user-select: none;
   user-select: none;
   cursor: pointer;
-}
-
-.btn:hover {
-  background-color: var(--btn-red-hover);
+  &:hover {
+    background-color: var(--btn-red-hover);
+  }
 }

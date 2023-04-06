@@ -1,0 +1,57 @@
+.card {
+  width: 80px;
+  height: 120px;
+  border-radius: 5px;
+  background-color: white;
+  padding: 5px 5px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  &.card-hidden {
+    background-image: url('../../../textures/card_hidden_red.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+
+  &.card-faded {
+    opacity: 0.3;
+  }
+
+  &.red {
+    color: #8d1414;
+  }
+
+  &.black {
+    color: black;
+  }
+
+  .card-value {
+    text-align: left;
+    font-size: 1.6em;
+    z-index: 900;
+    font-weight: 600;
+
+    &.reverse {
+      transform: rotateZ(180deg);
+    }
+  }
+
+  .card-suit {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    font-size: 4.5em;
+    margin-top: -30px;
+    margin-bottom: -20px;
+  }
+}

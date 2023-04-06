@@ -2,7 +2,7 @@ import { observer } from "mobx-react";
 import React, { ChangeEvent, useCallback } from "react";
 import store from "../../Store";
 import Link from "../link-button/Link";
-import "./Setting.css";
+import "./Setting.scss";
 
 interface SettingProps {
     name: string;
@@ -24,23 +24,23 @@ const Settings: React.FC<SettingProps> = observer(() => {
     );
 
     return (
-        <div className="settingsPage">
-            <div className="settingsDiv">
-                <div className="settingsTable">
+        <div className="setting-container">
+            <div className="settings">
+                <div className="table-setting">
                     <div>Player count:</div>
-                    <div className="playerCountSelector">
+                    <div className="playerCount">
                         <div
-                            className="playerCountCircle noSelect selectedPlayerCount"
+                            className="player-count-item noSelect selected"
                             onClick={(e) => setAmountOfHumanPlayers(2)}>
                             {2}
                         </div>
                         <div
-                            className="playerCountCircle noSelect"
+                            className="player-count-item noSelect"
                             onClick={(e) => setAmountOfHumanPlayers(3)}>
                             {3}
                         </div>
                         <div
-                            className="playerCountCircle noSelect"
+                            className="player-count-item noSelect"
                             onClick={(e) => setAmountOfHumanPlayers(3)}>
                             {4}
                         </div>
@@ -59,7 +59,7 @@ const Settings: React.FC<SettingProps> = observer(() => {
                     <div>
                         <input
                             type="number"
-                            id="startingMoneyInput"
+                            id="minimumBetValueInput"
                             value={20}
                             onChange={(e) => setMinimumBetValue(e)}
                         />{" "}

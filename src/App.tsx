@@ -1,6 +1,6 @@
 import { observer } from "mobx-react";
 import React from "react";
-import "./App.css";
+import "./App.scss";
 import Game from "./components/game/Game";
 import Link from "./components/link-button/Link";
 import Menu from "./components/menu/Menu";
