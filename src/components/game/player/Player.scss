@@ -36,14 +36,15 @@
       }
 
       .playerName {
-        font-size: 1.5em;
+        font-size: 1.2em;
         margin: 10px 10px 7px 10px;
         text-align: center;
         color: white;
       }
 
       .playerMoneyLeft {
-        font-size: 1.4em;
+        font-size: 1em;
+        font-weight: bold;
         margin-bottom: 2px;
         text-align: center;
         color: white;
@@ -53,7 +54,8 @@
   }
 
   .playerBet {
-    font-size: 1.8em;
+    font-size: 1em;
+    font-weight: bold;
     text-align: center;
     color: white;
     display: flex;
