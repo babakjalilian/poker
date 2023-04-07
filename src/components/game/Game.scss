@@ -105,7 +105,9 @@ $white-color: #ffffff;
   }
 }
 
-.gameTable,
-.card-container {
-  transition: all 500ms ease-in;
+.controls-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
 }

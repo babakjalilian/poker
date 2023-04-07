@@ -1,0 +1,15 @@
+.game-log {
+  background-color: var(--bg-darkgreen);
+  color: white;
+  height: 100%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  border-radius: 12px;
+  //   min-width: 450px;
+}
+
+.log {
+  font-size: 0.8rem;
+}

@@ -1,6 +1,8 @@
 import { observer } from "mobx-react";
 import React, { useEffect } from "react";
 import store from "../../Store";
+import BetControls from "./bet-controls/BetControls";
+import GameLog from "./game-log/GameLog";
 import GameTable from "./game-table/GameTable";
 import "./Game.scss";
 import Player from "./player/Player";
@@ -37,6 +39,13 @@ const Game: React.FC<GameProps> = observer(() => {
                 <div className="card-container card-container-botmid">
                     <Player playerId={0} />
                 </div>
+            </div>
+
+            <div className="controls-container">
+                <div className="gameLogContainer">
+                    <GameLog></GameLog>
+                </div>
+                <BetControls />
             </div>
         </>
     );
