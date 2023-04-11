@@ -1,38 +1,34 @@
-import { observer } from 'mobx-react';
-import React from 'react';
-import { CardNameSymbol, SuitSymbol } from '../../../types';
+import { observer } from "mobx-react";
+import React from "react";
+import { CardSymbol, SuitSymbol } from "../../../types";
 import "./Card.scss";
 
-
 export interface CardProps {
-    value: CardNameSymbol,
-    suit: SuitSymbol,
-    isFaded: boolean,
-    isHidden: boolean,
+  value: CardSymbol;
+  suit: SuitSymbol;
+  isFaded: boolean;
+  isHidden: boolean;
 }
 
-const Card: React.FC<CardProps> = observer(({ value, suit, isFaded, isHidden }) => {
+const Card: React.FC<CardProps> = observer(
+  ({ value, suit, isFaded, isHidden }) => {
     const redSuits: SuitSymbol[] = ["♦", "♥"];
     const isRed = redSuits.includes(suit);
-    const shownCardClassNames = `card ${isRed ? "red" : "black"} ${isFaded ? "card-faded" : ""}`;
+    const shownCardClassNames = `card ${isRed ? "red" : "black"} ${
+      isFaded ? "card-faded" : ""
+    }`;
 
     if (isHidden) {
-        return <div className="card card-hidden"></div>
+      return <div className="card card-hidden"></div>;
     }
     // <div className={cardClassNames} >
     return (
-        <div className={shownCardClassNames} >
-            <div className="card-value">
-                {value}
-            </div>
-            <div className="card-suit">
-                {suit}
-            </div>
-            <div className="card-value reverse" >
-                {value}
-            </div>
-        </div>
-    )
-});
+      <div className={shownCardClassNames}>
+        <div className="card-value">{value}</div>
+        <div className="card-suit">{suit}</div>
+        <div className="card-value reverse">{value}</div>
+      </div>
+    );
+  }
+);
 export default Card;
-
