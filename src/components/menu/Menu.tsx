@@ -4,6 +4,8 @@ import Link from "../link-button/Link";
 import GameName from "./game-name/GameName";
 import "./Menu.scss";
 
+import imageUrl from "../../textures/card_image.png";
+
 interface MenuProps {
     name: string;
 }
@@ -16,7 +18,7 @@ const Menu: React.FC<MenuProps> = observer(() => {
             <Link text="settings" page="Settings" />
             <img
                 className="background-image"
-                src={require("../../textures/card_image.png")}
+                src={imageUrl}
             />
         </div>
     );

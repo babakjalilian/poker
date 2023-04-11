@@ -54,7 +54,7 @@ const Settings: React.FC<SettingProps> = observer(() => {
         }
     };
 
-    const setAmountOfHumanPlayers = useCallback((count) => {
+    const setAmountOfHumanPlayers = useCallback((count: number) => {
         store.setPlayersCount(count);
     }, []);
 

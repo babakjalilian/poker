@@ -8,7 +8,7 @@ import Settings from "./components/setting/Setting";
 import Switch from "./components/switch/Switch";
 import store from "./Store";
 
-export const App: React.FC = observer(() => {
+const App: React.FC = observer(() => {
     return (
         <div className="game-background">
             {store.currentPage !== "Menu" && (
@@ -25,3 +25,5 @@ export const App: React.FC = observer(() => {
         </div>
     );
 });
+
+export default App;
