@@ -1,15 +1,16 @@
+import { inject } from 'mobx-react';
 import React, { useCallback } from 'react';
-import store from "../../Store";
-import { PageName } from "../../types";
+import { PageName, StoreType } from "../../types";
 import "./Link.scss";
 
 interface LinkProps {
     text: string,
     page: PageName,
     onPress?: () => void,
+    store?: StoreType
 };
 
-const Link: React.FC<LinkProps> = ({ text, page, onPress }) => {
+const Link: React.FC<LinkProps> = inject('store')(({ text, page, onPress, store }) => {
 
     const handleClick = useCallback(() => {
         store.currentPage = page;
@@ -21,5 +22,5 @@ const Link: React.FC<LinkProps> = ({ text, page, onPress }) => {
             {text}
         </div>
     )
-}
+})
 export default Link;

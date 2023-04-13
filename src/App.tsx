@@ -1,4 +1,4 @@
-import { observer } from "mobx-react";
+import { observer, Provider } from "mobx-react";
 import React from "react";
 import "./App.scss";
 import Game from "./components/game/Game";
@@ -10,19 +10,21 @@ import store from "./Store";
 
 const App: React.FC = observer(() => {
     return (
-        <div className="game-background">
-            {store.currentPage !== "Menu" && (
-                <div className="backButton_container">
-                    <Link text="⬅ back to menu" page="Menu" />
-                </div>
-            )}
-            {/* <Card value={'10'} suit={"♠"} isFaded={true} isHidden={false} /> */}
-            <Switch activePage={store.currentPage}>
-                <Menu name="Menu" />
-                <Game name="Game" />
-                <Settings name="Settings" />
-            </Switch>
-        </div>
+        <Provider store={store} >
+            <div className="game-background">
+                {store.currentPage !== "Menu" && (
+                    <div className="backButton_container">
+                        <Link text="⬅ back to menu" page="Menu" />
+                    </div>
+                )}
+                {/* <Card value={'10'} suit={"♠"} isFaded={true} isHidden={false} /> */}
+                <Switch activePage={store.currentPage}>
+                    <Menu name="Menu" />
+                    <Game name="Game" />
+                    <Settings name="Settings" />
+                </Switch>
+            </div>
+        </Provider>
     );
 });
 

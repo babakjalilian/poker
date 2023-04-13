@@ -1,9 +1,13 @@
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import React, { ChangeEvent, useCallback, useLayoutEffect, useState } from 'react';
-import store from "../../../Store";
+import { StoreType } from '../../../types';
 import "./BetControls.scss";
 
-const BetControls: React.FC = observer(() => {
+interface BetControlProps {
+    store?: StoreType
+}
+
+const BetControls: React.FC<BetControlProps> = inject('store')(observer(({ store }) => {
     const [minBetValue, setMinBetValue] = useState(store.minimumBet);
     const [betValue, setBetValue] = useState(store.minimumBet);
     const [sBetValue, setSBetValue] = useState(String(betValue));
@@ -124,5 +128,5 @@ const BetControls: React.FC = observer(() => {
             </div>
         </div>
     )
-});
+}));
 export default BetControls;

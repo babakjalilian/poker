@@ -1,16 +1,17 @@
-import { observer } from "mobx-react";
+import { inject, observer } from "mobx-react";
 import React, { ChangeEvent, useCallback, useState } from "react";
-import store from "../../Store";
+import { StoreType } from "../../types";
 import Link from "../link-button/Link";
 import "./Setting.scss";
 
 interface SettingProps {
     name: string;
+    store?: StoreType;
 }
 
 const availablePlayerAmount = [2, 3, 4];
 
-const Settings: React.FC<SettingProps> = observer(() => {
+const Settings: React.FC<SettingProps> = inject('store')(observer(({ store }) => {
     const [areSettingsValid, setAreSettingsValid] = useState(true);
     const [message, setMessage] = useState("good to go!");
     const [startingMoney, setStartingMoney] = useState(String(store.initialDeposit));
@@ -97,5 +98,6 @@ const Settings: React.FC<SettingProps> = observer(() => {
             </div>
         </div>
     );
-});
+})
+);
 export default Settings;
