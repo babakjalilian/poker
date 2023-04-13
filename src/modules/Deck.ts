@@ -7,14 +7,12 @@ export class Deck implements DeckType {
     cards = [];
 
     constructor() {
-        const cards = suitNames
+        this.cards = suitNames
             .map((suitName) => {
                 return cardNames.map((cardName) => {
-                    return new Card({ suitName, cardName });
+                    return new Card(suitName, cardName);
                 });
-            })
-            .flat();
-        this.cards = cards;
+            }).flat();
 
         makeAutoObservable(this);
     }

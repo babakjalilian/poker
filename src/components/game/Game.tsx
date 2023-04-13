@@ -1,6 +1,5 @@
 import { observer } from "mobx-react";
-import React, { useEffect } from "react";
-import store from "../../Store";
+import React from "react";
 import BetControls from "./bet-controls/BetControls";
 import GameLog from "./game-log/GameLog";
 import GameTable from "./game-table/GameTable";
@@ -12,9 +11,6 @@ interface GameProps {
 }
 
 const Game: React.FC<GameProps> = observer(() => {
-    useEffect(() => {
-        store.startInitialGame();
-    }, []);
 
     return (
         <>

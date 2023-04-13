@@ -8,13 +8,6 @@
   flex-direction: column;
   box-sizing: border-box;
 
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-
   &.card-hidden {
     background-image: url('../../../textures/card_hidden_red.svg');
     background-size: cover;
@@ -39,10 +32,6 @@
     font-size: 1em;
     z-index: 900;
     font-weight: 600;
-
-    &.reverse {
-      transform: rotateZ(180deg);
-    }
   }
 
   .card-suit {
@@ -50,8 +39,7 @@
     flex: 1;
     justify-content: center;
     align-items: center;
-    font-size: 2.5em;
-    margin-top: -30px;
-    margin-bottom: -20px;
+    font-size: 3em;
+    margin-top: -15px;
   }
 }

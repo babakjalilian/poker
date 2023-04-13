@@ -18,6 +18,10 @@ const Settings: React.FC<SettingProps> = observer(() => {
 
     const { amountOfHumanPlayers } = store;
 
+    const startTheGame = useCallback(() => {
+        store.startInitialGame();
+    }, []);
+
     const updateStartingMoney = (e: ChangeEvent<HTMLInputElement>) => {
         let newValue = parseInt(e.target.value) || "";
         setStartingMoney(newValue.toString());
@@ -89,7 +93,7 @@ const Settings: React.FC<SettingProps> = observer(() => {
                     </div>
                 </div>
                 {message}
-                {areSettingsValid ? <Link text="play the game!" page="Game" /> : ""}
+                {areSettingsValid ? <Link text="play the game!" page="Game" onPress={startTheGame} /> : ""}
             </div>
         </div>
     );

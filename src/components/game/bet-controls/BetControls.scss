@@ -1,118 +1,108 @@
 .bet-controls-container {
   font-size: 1.2em;
-  background-color: #080908;
+  background-color: rgba(8, 9, 8, 0.8);
   padding: 15px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  .controls {
+    display: grid;
+    grid-template-columns: repeat(4, 60px);
+    gap: 10px;
+    grid-auto-rows: 20px 40px 60px 40px;
+    margin-top: 15px;
+
+    .min-bet-value-label {
+      text-align: left;
+      font-size: 0.8em;
+    }
+
+    .max-bet-value-label {
+      text-align: right;
+      font-size: 0.8em;
+    }
+
+    #betAmountInput {
+      box-sizing: border-box;
+      padding: 5px;
+      text-align: center;
+      font-size: 1.3em;
+      color: white;
+      font-weight: 600;
+      background-color: var(--transparent);
+      border: none;
+      width: 60px;
+    }
+
+    .slider-container {
+      grid-column: 1 / span 3;
+
+      #betSlider {
+        width: 100%;
+        height: 30px;
+        transition: opacity 0.2s;
+      }
+    }
+
+    .control-btn {
+      padding: 15px 10px;
+      border-radius: 5px;
+      text-align: center;
+      cursor: pointer;
+      height: 100%;
+      width: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+
+      &#foldBtn {
+        background-color: #474747;
+        &:hover {
+          background-color: #383838;
+        }
+      }
+
+      &#betCheckBtn {
+        background-color: var(--btn-blue-base);
+        &:hover {
+          background-color: var(--btn-blue-hover);
+        }
+      }
+
+      &#raiseBtn {
+        background-color: #1d684d;
+        &:hover {
+          background-color: #227a5a;
+        }
+      }
+
+      &#allInBtn {
+        background-color: #217c1b;
+        &:hover {
+          background-color: #2a8923;
+        }
+      }
+    }
+
+    .peak-cards-btn {
+      background-color: var(--btn-blue-hover);
+      box-sizing: border-box;
+      padding: 5px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      grid-column: 1 / span 4;
+      height: 100%;
+      cursor: pointer;
+    }
+  }
 }
 
-.controls {
-  display: grid;
-  grid-template-columns: repeat(4, 60px);
-  gap: 10px;
-  grid-auto-rows: 20px 40px 60px 40px;
-  margin-top: 15px;
-}
-
-.min-bet-value {
-  text-align: left;
-  font-size: 0.8em;
-}
-
-#betAmountInput {
-  box-sizing: border-box;
-  padding: 5px;
+.player-money-left {
   text-align: center;
-  font-size: 1.3em;
-  color: white;
   font-weight: 600;
-  background-color: var(--transparent);
-  border: none;
-  width: 60px;
-}
-
-.max-bet-value {
-  text-align: right;
-  font-size: 0.8em;
-}
-
-.slider-container {
-  grid-column: 1 / span 3;
-}
-
-#betSlider {
-  width: 100%;
-
-  height: 30px;
-  transition: opacity 0.2s;
-}
-
-.bet-active-player-name {
-  text-align: center;
-  font-weight: 600;
-}
-
-#foldBtn {
-  background-color: #474747;
-  height: 100%;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60px;
-}
-
-#foldBtn:hover {
-  background-color: #383838;
-}
-
-.control-btn {
-  padding: 15px 10px;
-  border-radius: 5px;
-  text-align: center;
-  cursor: pointer;
-}
-
-#betCheckBtn {
-  background-color: var(--btn-blue-base);
-
-  height: 100%;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  width: 60px;
-  justify-content: center;
-}
-
-#betCheckBtn:hover {
-  background-color: var(--btn-blue-hover);
-}
-
-#all-in-btn {
-  background-color: #217c1b;
-  box-sizing: border-box;
-  height: 100%;
-  width: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#all-in-btn:hover {
-  background-color: #2a8923;
-}
-
-.peak-cards-btn {
-  background-color: var(--btn-blue-hover);
-  box-sizing: border-box;
-  padding: 5px 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  grid-column: 1 / span 4;
-  height: 100%;
-  cursor: pointer;
 }

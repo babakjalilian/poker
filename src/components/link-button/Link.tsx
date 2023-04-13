@@ -5,13 +5,16 @@ import "./Link.scss";
 
 interface LinkProps {
     text: string,
-    page: PageName
+    page: PageName,
+    onPress?: () => void,
 };
 
-const Link: React.FC<LinkProps> = ({ text, page }) => {
+const Link: React.FC<LinkProps> = ({ text, page, onPress }) => {
+
     const handleClick = useCallback(() => {
         store.currentPage = page;
-    }, [page]);
+        onPress && onPress();
+    }, []);
 
     return (
         <div className="btn" onClick={handleClick}>
