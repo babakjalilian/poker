@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { BET_ACTION, POKER_ROUNDS } from './Consts';
+import { BET_ACTION, COMBINATIONS, POKER_ROUNDS } from './Consts';
 import { Card } from "./modules/Card";
 import { Deck } from "./modules/Deck";
 import { Player } from "./modules/Player";
@@ -29,21 +29,23 @@ class Store {
             bigBlind: this.minimumBet * 2,
         }
     }
+
+    get allPlayerCards() {
+        return this.players.playerList.map(player => player.cards).flat();
+    }
+
+    get allCards() {
+        const cardsOnTheDesk = this.cardsOnTheDesk;
+        return [...this.allPlayerCards, ...cardsOnTheDesk];
+    }
+
+    get mustGameBeRestarted() {
+        const playersWhoCanContinuePlaying = this.players.playerList.filter(player => player.moneyLeft >= this.blinds.bigBlind);
+        return playersWhoCanContinuePlaying.length === 1;
+    }
+
     constructor() {
         makeAutoObservable(this);
-    }
-
-
-    setPlayersCount(amountOfPlayers: number) {
-        this.amountOfHumanPlayers = amountOfPlayers;
-    }
-
-    setMinimumBet(minimumBet: number) {
-        this.minimumBet = minimumBet;
-    }
-
-    setInitialDeposit(initialDeposit: number) {
-        this.initialDeposit = initialDeposit;
     }
 
     startInitialGame() {
@@ -59,6 +61,46 @@ class Store {
         this.sumOfBets = 0;
 
         this.startRound_BlindCall()
+    }
+
+    continueGame() {
+        this.performContinuingGameReset();
+        this.startRound_BlindCall();
+    }
+
+    performContinuingGameReset() {
+        const { playerList } = this.players;
+        playerList.forEach(player => {
+            player.cards = [];
+            player.bestCombinationName = COMBINATIONS.HIGH_CARD;
+            player.bestCombinationCards = [];
+            player.winAmount = 0;
+            player.sumOfPersonalBetsInThisRound = 0;
+            player.betToPayToContinue = 0;
+            player.hasReacted = false;
+            player.isAllIn = false;
+            player.hasFolded = false;
+            player.canCheck = false;
+            player.canSupportBet = false;
+            player.canRaise = false;
+        });
+
+        const playersWhoCanContinuePlaying = playerList.filter(player => player.moneyLeft >= this.blinds.bigBlind);
+
+        this.players.playerList = playersWhoCanContinuePlaying;
+        this.isEveryoneAllInOrFold = false;
+
+        this.deck = new Deck();
+        this.cardsOnTheDesk = [];
+
+        this.isGameActive = true;
+        this.winners = [];
+        this.gameInfo = [];
+
+        this.maxSumOfIndividualBets = 0;
+        this.sumOfBets = 0;
+
+        this.players.passBlinds();
     }
 
     startRound_BlindCall() {
@@ -121,8 +163,8 @@ class Store {
             }
             case POKER_ROUNDS.RIVER: {
                 this.isGameActive = false;
-                this.showGameResults();
-                break
+                this.endGame();
+                break;
             }
             default: {
                 console.error("Unhandled activeRound: ", activeRound);
@@ -142,8 +184,69 @@ class Store {
 
     }
 
+    setCurrentPage(pageToShow: PageName) {
+        this.currentPage = pageToShow;
+    }
+
+    setInitialDeposit(initialDeposit: number) {
+        this.initialDeposit = initialDeposit;
+    }
+
+    setMinimumBet(minimumBet: number) {
+        this.minimumBet = minimumBet;
+    }
+
+    setPlayersCount(amountOfPlayers: number) {
+        this.amountOfHumanPlayers = amountOfPlayers;
+    }
+
+    endGame() {
+        this.showGameResults();
+        setTimeout(() => {
+            this.unfadeAllCards();
+            this.payWinners();
+
+            if (this.mustGameBeRestarted) {
+                this.gameInfo.push(`Game over. Automatic restart incoming.`);
+                this.cardsOnTheDesk = [];
+                return setTimeout(() => {
+                    return this.startInitialGame();
+                }, 3000);
+            }
+
+            return this.continueGame();
+
+        }, 5000)
+
+    }
+
     showGameResults() {
         this.players.showAllCards();
+        this.players.getWinnersOfRound(this);
+
+        this.winners = this.winners.filter(player => player.winAmount);
+        const { winners } = this;
+
+        for (const winner of winners) {
+            this.fadeAllCards();
+            winner.bestCombinationCards.forEach(card => card.isFaded = false);
+            break;
+        }
+    }
+
+    payWinners() {
+        this.winners.forEach(winner => {
+            winner.moneyLeft += winner.winAmount;
+            winner.winAmount = 0;
+        });
+    }
+
+    fadeAllCards() {
+        this.allCards.forEach(card => card.fade());
+    }
+
+    unfadeAllCards() {
+        this.allCards.forEach(card => card.unfade());
     }
 }
 

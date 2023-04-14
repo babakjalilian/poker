@@ -1,5 +1,6 @@
 import { BET_ACTION, COMBINATIONS } from "./Consts";
 import { Card } from "./modules/Card";
+import { Player } from "./modules/Player";
 import Store from "./Store";
 
 export type PageName = "Menu" | "Game" | "Settings";
@@ -9,6 +10,7 @@ export type CardName = "two" | "three" | "four" | "five" | "six" | "seven" | "ei
 export type CardSymbol = | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "J" | "Q" | "K" | "A";
 export type CardCost = 0 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14;
 
+export type PlayersAtCombinations = Partial<Record<COMBINATIONS, Player[]>>;
 export interface CardType {
     suitName: SuitName;
     suitSymbol: SuitSymbol;

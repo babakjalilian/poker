@@ -12,7 +12,7 @@ interface LinkProps {
 const Link: React.FC<LinkProps> = ({ text, page, onPress }) => {
     const store = useStore();
     const handleClick = useCallback(() => {
-        store.currentPage = page;
+        store.setCurrentPage(page);
         onPress && onPress();
     }, []);
 
