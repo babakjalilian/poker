@@ -12,6 +12,13 @@ const GameTable: React.FC<GameTableProps> = inject('store')(observer(({ store })
     return (
         <div className="gameTable noSelect">
             <div className="tableCardsContainer">
+                <div className="placeholder-container">
+                    <div className="card-placeholder"></div>
+                    <div className="card-placeholder"></div>
+                    <div className="card-placeholder"></div>
+                    <div className="card-placeholder"></div>
+                    <div className="card-placeholder"></div>
+                </div>
                 {store.cardsOnTheDesk?.map(({ suitName, cardSymbol, suitSymbol, cardName, isFaded, isHidden }) => {
                     return <Card key={`${suitName}_${cardName}`}
                         value={cardSymbol}

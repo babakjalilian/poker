@@ -12,11 +12,43 @@
   flex-direction: column;
   margin: auto;
 
+  .placeholder-container {
+    display: flex;
+    justify-content: left;
+    gap: 6px;
+    width: 100%;
+    position: absolute;
+    .card-placeholder {
+      width: 52px;
+      height: 72px;
+      border: 2px solid #108300;
+      border-radius: 8px;
+      position: relative;
+      left: -3px;
+      top: -3px;
+    }
+  }
+
   .tableCardsContainer {
     display: flex;
-    justify-content: center;
-
-    gap: 10px;
+    justify-content: left;
+    gap: 12px;
+    width: 100%;
+    height: 100%;
+    padding-left: 75px;
+    .card {
+      //   position: absolute;
+      //   right: -200px;
+      transform: translateX(200px);
+      -webkit-animation: slide 0.5s forwards;
+      animation: slide 0.5s forwards;
+      opacity: 0.8;
+      .card-inner {
+        transform: rotateY(180deg);
+        animation: flip 0.5s forwards;
+        animation-delay: 0.4s;
+      }
+    }
   }
 
   .tableInfo {
@@ -31,5 +63,31 @@
     ul {
       margin: 0;
     }
+  }
+}
+
+@-webkit-keyframes slide {
+  100% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes slide {
+  100% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes flip {
+  100% {
+    transform: rotateY(0);
+  }
+}
+
+@keyframes flip {
+  100% {
+    transform: rotateY(0);
   }
 }

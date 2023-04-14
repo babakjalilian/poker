@@ -44,6 +44,7 @@ export class Card implements CardType {
     hide() {
         this.isHidden = true;
     }
+
     show() {
         this.isHidden = false;
     }

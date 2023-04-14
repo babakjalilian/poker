@@ -1,45 +1,62 @@
 .card {
+  background-color: transparent;
   width: 50px;
   height: 70px;
-  border-radius: 5px;
-  background-color: white;
-  padding: 5px 5px;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+  perspective: 1000px;
+  .card-inner {
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 
-  &.card-hidden {
-    background-image: url('../../../textures/card_hidden_red.svg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
+    .card-front {
+      width: 50px;
+      height: 70px;
+      border-radius: 5px;
+      background-color: white;
+      padding: 5px 5px;
+      box-sizing: border-box;
+      position: absolute;
+      backface-visibility: hidden;
+
+      &.card-faded {
+        opacity: 0.3;
+      }
+
+      &.red {
+        color: #8d1414;
+      }
+
+      &.black {
+        color: black;
+      }
+
+      .card-value {
+        text-align: left;
+        font-size: 1em;
+        font-weight: 600;
+      }
+
+      .card-suit {
+        font-size: 3em;
+        margin-top: -15px;
+      }
+    }
+
+    .card-back {
+      backface-visibility: hidden;
+      background-image: url('../../../textures/card_hidden_red.svg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      width: 50px;
+      height: 70px;
+      border-radius: 5px;
+      transform: rotateY(180deg);
+    }
   }
 
-  &.card-faded {
-    opacity: 0.3;
-  }
-
-  &.red {
-    color: #8d1414;
-  }
-
-  &.black {
-    color: black;
-  }
-
-  .card-value {
-    text-align: left;
-    font-size: 1em;
-    z-index: 900;
-    font-weight: 600;
-  }
-
-  .card-suit {
-    display: flex;
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-    font-size: 3em;
-    margin-top: -15px;
+  &.card-hidden .card-inner {
+    transform: rotateY(180deg);
   }
 }

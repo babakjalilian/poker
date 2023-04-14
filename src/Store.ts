@@ -99,9 +99,11 @@ class Store implements StoreType {
         switch (activeRound) {
             case POKER_ROUNDS.BLIND_CALL: {
                 this.activeRound = POKER_ROUNDS.FLOP;
-                for (let i = 1; i <= 3; i++) {
-                    const randomCard = this.deck.pickRandomCard();
-                    this.cardsOnTheDesk.push(randomCard);
+                for (let i = 0; i <= 2; i++) {
+                    setTimeout(() => {
+                        const randomCard = this.deck.pickRandomCard();
+                        this.cardsOnTheDesk.push(randomCard);
+                    }, i * 500);
                 }
                 break;
             }
