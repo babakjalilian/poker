@@ -1,15 +1,15 @@
-import { inject, observer } from "mobx-react";
+import { observer } from "mobx-react";
 import React from "react";
-import { StoreType } from "../../../types";
+import { useStore } from "../../../useStore";
 import Card from "../card/Card";
 import "./Player.scss";
 
 interface PlayerProps {
     playerId: 0 | 1 | 2 | 3;
-    store?: StoreType
 }
 
-const Player: React.FC<PlayerProps> = inject('store')(observer(({ playerId, store }) => {
+const Player: React.FC<PlayerProps> = observer(({ playerId }) => {
+    const store = useStore();
     const { playerList } = store.players;
     const hasGameBeenInitialized = typeof playerList !== "undefined";
     if (!hasGameBeenInitialized) return <></>;
@@ -45,5 +45,5 @@ const Player: React.FC<PlayerProps> = inject('store')(observer(({ playerId, stor
             </div>
         </div>
     );
-}));
+});
 export default Player;

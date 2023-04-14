@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { humanPlayerNames } from "../Consts";
-import { StoreType } from "../types";
+import Store from "../Store";
 import { Player } from "./Player";
 
 export class Players {
@@ -33,7 +33,7 @@ export class Players {
         makeAutoObservable(this);
     }
 
-    passMove(store: StoreType) {
+    passMove(store: Store) {
         const isEveryoneAllInOrFold = this.playerList.every(player => player.isAllIn || player.hasFolded);
         store.isEveryoneAllInOrFold = isEveryoneAllInOrFold;
         if (isEveryoneAllInOrFold) {
@@ -52,7 +52,7 @@ export class Players {
         this.activePlayer = this.getNextActivePlayer();
     }
 
-    updatePlayerAbilities(store: StoreType) {
+    updatePlayerAbilities(store: Store) {
         // player can't continue playing in this round if: hasFolded
         this.playersStillInThisRound = this.playerList.filter(player => !player.hasFolded);
         // if everyone else folds, the last player wins

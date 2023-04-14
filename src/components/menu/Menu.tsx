@@ -1,18 +1,18 @@
-import { inject, observer } from "mobx-react";
+import { observer } from "mobx-react";
 import React, { useCallback } from "react";
 import Link from "../link-button/Link";
 import GameName from "./game-name/GameName";
 import "./Menu.scss";
 
 import imageUrl from "../../textures/card_image.png";
-import { StoreType } from "../../types";
+import { useStore } from "../../useStore";
 
 interface MenuProps {
     name: string;
-    store?: StoreType;
 }
 
-const Menu: React.FC<MenuProps> = inject('store')(observer(({ store }) => {
+const Menu: React.FC<MenuProps> = observer(() => {
+    const store = useStore();
     const startTheGame = useCallback(() => {
         store.startInitialGame();
     }, []);
@@ -27,6 +27,5 @@ const Menu: React.FC<MenuProps> = inject('store')(observer(({ store }) => {
             />
         </div>
     );
-})
-);
+});
 export default Menu;

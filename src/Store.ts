@@ -4,9 +4,9 @@ import { Card } from "./modules/Card";
 import { Deck } from "./modules/Deck";
 import { Player } from "./modules/Player";
 import { Players } from "./modules/Players";
-import { PageName, StoreType } from "./types";
+import { PageName } from "./types";
 
-class Store implements StoreType {
+class Store {
     currentPage: PageName = "Menu";
 
     amountOfHumanPlayers: number = 3;
@@ -147,5 +147,4 @@ class Store implements StoreType {
     }
 }
 
-const store = new Store();
-export default store;
+export default Store;

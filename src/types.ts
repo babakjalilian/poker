@@ -8,7 +8,6 @@ export type SuitSymbol = "♦" | "♣" | "♥" | "♠";
 export type CardName = "two" | "three" | "four" | "five" | "six" | "seven" | "eight" | "nine" | "ten" | "jack" | "queen" | "king" | "ace";
 export type CardSymbol = | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "J" | "Q" | "K" | "A";
 export type CardCost = 0 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14;
-export type StoreType = typeof Store;
 
 export interface CardType {
     suitName: SuitName;
@@ -45,11 +44,11 @@ export interface PlayerType {
     canSupportBet: boolean;
     canRaise: boolean;
 
-    fold: (store: StoreType) => void;
-    check: (store: StoreType) => void;
-    supportBet: (store: StoreType) => void;
-    raiseBet: (store: StoreType, bet: number) => void;
-    allIn: (store: StoreType) => void;
-    placeBet: (betAmount: number, store: StoreType, betAction: BET_ACTION) => void;
+    fold: (store: Store) => void;
+    check: (store: Store) => void;
+    supportBet: (store: Store) => void;
+    raiseBet: (store: Store, bet: number) => void;
+    allIn: (store: Store) => void;
+    placeBet: (betAmount: number, store: Store, betAction: BET_ACTION) => void;
     pickCard: (cardToTake: Card) => void;
 }

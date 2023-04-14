@@ -1,14 +1,13 @@
-import { inject, observer } from "mobx-react";
+import { observer } from "mobx-react";
 import React from "react";
-import { StoreType } from "../../../types";
+import { useStore } from "../../../useStore";
 import Card from "../card/Card";
 import "./GameTable.scss";
 
-interface GameTableProps {
-    store?: StoreType;
-}
 
-const GameTable: React.FC<GameTableProps> = inject('store')(observer(({ store }) => {
+
+const GameTable: React.FC = observer(() => {
+    const store = useStore();
     return (
         <div className="gameTable noSelect">
             <div className="tableCardsContainer">
@@ -39,5 +38,5 @@ const GameTable: React.FC<GameTableProps> = inject('store')(observer(({ store })
             </div>
         </div>
     );
-}));
+});
 export default GameTable;
