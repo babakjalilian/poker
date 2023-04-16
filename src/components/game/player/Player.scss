@@ -32,19 +32,33 @@
       margin-bottom: 8px;
       transform: scale(1.05);
       .playerInfoBody {
-        // background-image: linear-gradient(315deg, #1d2c1b 0%, #00ec01 74%);
-        background: linear-gradient(269deg, rgba(0, 0, 0, 0) 33%, rgba(255, 255, 255, 0.9) 50%, rgba(0, 0, 0, 0) 66%) #c2b336;
-        background-size: 300% 100%;
-        animation: shine 1.5s infinite;
+        background-image: none;
+        box-shadow: 0px 12px 13px 8px rgba(0, 0, 0, 0.3);
+
+        &::before {
+          content: "";
+          position: absolute;
+          width: 300%;
+          height: 100%;
+          top: 0;
+          z-index: -1;
+          background: linear-gradient(268deg, rgba(0, 0, 0, 0) 35%, rgba(255, 255, 255, 0.6) 50%, rgba(0, 0, 0, 0) 65%)
+            rgba(98, 245, 71, 0.9);
+          // background: linear-gradient(268deg, rgba(0, 0, 0, 0) 33%, rgba(255, 255, 255, 0.9) 50%, rgba(0, 0, 0, 0) 66%)
+          //   #c2b336;
+          animation: MOVE-BG 1.5s infinite linear;
+        }
       }
     }
 
     .playerInfoBody {
       /* background-color: var(--bg-darkgreen); */
-      background-image: linear-gradient(315deg, #022139 0%, #c4c5c6 74%);
+      background-image: linear-gradient(41deg, #7d8489 0%, #c4c5c6 74%);
       box-shadow: 0 3px 14px #000;
       border-radius: 8px;
       padding: 5px;
+      position: relative;
+      overflow: hidden;
 
       .playerCards {
         display: flex;
@@ -146,8 +160,11 @@
 //   }
 // }
 
-@keyframes shine {
-  0% {
-    background-position: right;
+@keyframes MOVE-BG {
+  from {
+    transform: translateX(-230px);
+  }
+  to {
+    transform: translateX(-10px);
   }
 }
