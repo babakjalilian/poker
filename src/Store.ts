@@ -13,9 +13,7 @@ class Store {
     players: Players;
     minimumBet = 10;
     initialDeposit = 100;
-    maxSumOfIndividualBets = 0; // maxmimum amount of bets of one person in this round
     sumOfBets = 0; // the sum to split between winners of the round
-    isEveryoneAllInOrFold = true;
     deck: Partial<Deck> = {}; // array of cards to pick from
     cardsOnTheDesk: Card[] = [];
     winners: Player[];
@@ -51,13 +49,11 @@ class Store {
     startInitialGame() {
         console.log("game started");
         this.players = new Players(this.amountOfHumanPlayers, this.initialDeposit);
-        this.isEveryoneAllInOrFold = false;
         this.deck = new Deck();
         this.cardsOnTheDesk = [];
         this.isGameActive = true;
         this.winners = [];
         this.gameInfo = [];
-        this.maxSumOfIndividualBets = 0;
         this.sumOfBets = 0;
 
         this.startRound_BlindCall()
@@ -76,28 +72,19 @@ class Store {
             player.bestCombinationCards = [];
             player.winAmount = 0;
             player.sumOfPersonalBetsInThisRound = 0;
-            player.betToPayToContinue = 0;
             player.hasReacted = false;
             player.isAllIn = false;
             player.hasFolded = false;
-            player.canCheck = false;
-            player.canSupportBet = false;
-            player.canRaise = false;
         });
 
         const playersWhoCanContinuePlaying = playerList.filter(player => player.moneyLeft >= this.blinds.bigBlind);
-
         this.players.playerList = playersWhoCanContinuePlaying;
-        this.isEveryoneAllInOrFold = false;
-
         this.deck = new Deck();
         this.cardsOnTheDesk = [];
-
         this.isGameActive = true;
         this.winners = [];
+        this.players.winners = [];
         this.gameInfo = [];
-
-        this.maxSumOfIndividualBets = 0;
         this.sumOfBets = 0;
 
         this.players.passBlinds();
@@ -108,8 +95,8 @@ class Store {
         /* big and small blinds */
         const { smallBlind, bigBlind } = this.blinds;
         const { smallBlindPlayer, bigBlindPlayer } = this.players;
-        bigBlindPlayer.placeBet(bigBlind, this, BET_ACTION.BIG_BLIND);
         smallBlindPlayer.placeBet(smallBlind, this, BET_ACTION.SMALL_BLIND);
+        bigBlindPlayer.placeBet(bigBlind, this, BET_ACTION.BIG_BLIND);
 
         /* give cards to players */
         const playerList = this.players.playerList;
@@ -121,17 +108,18 @@ class Store {
         }
 
         /* players decide whether to continue playing with these cards or fold (starting from the small blind player) */
-        this.players.updatePlayerAbilities(this);
-        this.players.activePlayer = this.players.smallBlindPlayer;
+        // this.players.updatePlayerAbilities(this);
+        // if (this.players.playersStillInThisRound.length === 1) {
+        //     return this.endGame();
+        // }
+        this.players.activePlayer = this.players.bigBlindPlayer;
+        this.players.activePlayer = this.players.getNextActivePlayer();
     }
 
     startNextRound(): any {
         /* cleanup before the round */
-        if (!this.isEveryoneAllInOrFold) {
+        if (this.players.playersStillInThisRound.filter(player => !player.isAllIn).length > 1) {
             this.players.playersStillInThisRound.forEach(player => {
-                player.canCheck = true;
-                player.canSupportBet = true;
-                player.canRaise = true;
                 player.hasReacted = false;
             });
         }
@@ -142,10 +130,8 @@ class Store {
             case POKER_ROUNDS.BLIND_CALL: {
                 this.activeRound = POKER_ROUNDS.FLOP;
                 for (let i = 0; i <= 2; i++) {
-                    setTimeout(() => {
-                        const randomCard = this.deck.pickRandomCard();
-                        this.cardsOnTheDesk.push(randomCard);
-                    }, i * 500);
+                    const randomCard = this.deck.pickRandomCard();
+                    this.cardsOnTheDesk.push(randomCard);
                 }
                 break;
             }
@@ -162,7 +148,6 @@ class Store {
                 break;
             }
             case POKER_ROUNDS.RIVER: {
-                this.isGameActive = false;
                 this.endGame();
                 break;
             }
@@ -177,11 +162,84 @@ class Store {
                 return this.startNextRound();
             }
 
-            this.players.updatePlayerAbilities(this);
-            const nextActivePlayer = this.players.getNextActivePlayer();
+            // this.players.updatePlayerAbilities(this);
+            // if (this.players.playersStillInThisRound.length === 1) {
+            //     return this.endGame();
+            // }
+            let nextActivePlayer = this.players.smallBlindPlayer;
+            if (this.players.playerList.length === 2) {
+                nextActivePlayer = this.players.bigBlindPlayer;
+            }
             this.players.activePlayer = nextActivePlayer;
+            if (nextActivePlayer.isAllIn || nextActivePlayer.hasFolded) {
+                nextActivePlayer = this.players.getNextActivePlayer();
+                this.players.activePlayer = nextActivePlayer;
+            }
+        }
+    }
+
+    passMove() {
+        const isEveryoneAllInOrFold = this.players.playerList.every(player => player.isAllIn || player.hasFolded);
+        if (isEveryoneAllInOrFold) {
+            this.players.showAllCards();
+            return this.startNextRound();
         }
 
+        if (this.players.playersStillInThisRound.length === 1) {
+            return this.endGame();
+        }
+
+        const areThereAnyPlayersToReact = this.players.playersLeftToReact.length > 0;
+        if (!areThereAnyPlayersToReact) {
+            this.startNextRound();
+            return;
+        }
+
+        this.players.activePlayer = this.players.getNextActivePlayer();
+    }
+
+    endGame() {
+        this.isGameActive = false;
+        this.showGameResults();
+        setTimeout(() => {
+            this.unfadeAllCards();
+            this.payWinners();
+
+            if (this.mustGameBeRestarted) {
+                this.gameInfo.push(`Game over. Game will restart automatically.`);
+                this.cardsOnTheDesk = [];
+                return setTimeout(() => {
+                    return this.startInitialGame();
+                }, 3000);
+            }
+            return this.continueGame();
+        }, 5000)
+    }
+
+    showGameResults() {
+        this.players.showAllCards();
+        this.fadeAllCards();
+        this.winners = this.players.getWinnersOfRound(this.cardsOnTheDesk);
+        this.logWinners();
+
+        for (const winner of this.winners) {
+            winner.bestCombinationCards.forEach(card => card.isFaded = false);
+        }
+    }
+
+    payWinners() {
+        this.winners.forEach(winner => {
+            winner.moneyLeft += winner.winAmount;
+            winner.winAmount = 0;
+        });
+    }
+
+    logWinners() {
+        this.winners.forEach(winner => {
+            const { name, winAmount, bestCombinationName } = winner;
+            const message = `${name} wins ${winAmount}€ [${COMBINATION_NAMES_HUMAN[bestCombinationName]}]`;
+            this.gameInfo.push(message);
+        });
     }
 
     setCurrentPage(pageToShow: PageName) {
@@ -200,62 +258,12 @@ class Store {
         this.amountOfHumanPlayers = amountOfPlayers;
     }
 
-    endGame() {
-        this.showGameResults();
-        setTimeout(() => {
-            this.unfadeAllCards();
-            this.payWinners();
-
-            if (this.mustGameBeRestarted) {
-                this.gameInfo.push(`Game over. Automatic restart incoming.`);
-                this.cardsOnTheDesk = [];
-                return setTimeout(() => {
-                    return this.startInitialGame();
-                }, 3000);
-            }
-
-            return this.continueGame();
-
-        }, 5000)
-
-    }
-
-    showGameResults() {
-        this.players.showAllCards();
-        this.players.getWinnersOfRound(this);
-
-        this.winners = this.winners.filter(player => player.winAmount);
-        this.logWinners();
-        const { winners } = this;
-
-        for (const winner of winners) {
-            this.fadeAllCards();
-            winner.bestCombinationCards.forEach(card => card.isFaded = false);
-            break;
-        }
-    }
-
-    payWinners() {
-        this.winners.forEach(winner => {
-            winner.moneyLeft += winner.winAmount;
-            winner.winAmount = 0;
-        });
-    }
-
     fadeAllCards() {
         this.allCards.forEach(card => card.fade());
     }
 
     unfadeAllCards() {
         this.allCards.forEach(card => card.unfade());
-    }
-
-    logWinners() {
-        this.winners.forEach(winner => {
-            const { name, winAmount, bestCombinationName } = winner;
-            const message = `${name} wins ${winAmount}€ [${COMBINATION_NAMES_HUMAN[bestCombinationName]}]`;
-            this.gameInfo.push(message);
-        });
     }
 }
 

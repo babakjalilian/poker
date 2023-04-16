@@ -18,7 +18,7 @@ const BetControls: React.FC = observer(() => {
         setMinBetValue(minimumBetAmount);
         setBetValue(minimumBetAmount);
         setSBetValue(String(minimumBetAmount));
-    }, [store.players.activePlayer]);
+    }, [store.players.activePlayer, store.activeRound]);
 
     const updateBetValue = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         const target = e.target;

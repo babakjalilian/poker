@@ -1,6 +1,5 @@
 import { makeAutoObservable } from "mobx";
 import { cardCosts, COMBINATIONS, humanPlayerNames, suitNames, suitSymbols } from "../Consts";
-import Store from "../Store";
 import { CardCost, PlayersAtCombinations } from "../types";
 import { getCardsInFlushIfThereIsAny, getCardsInStraightIfThereIsAny, getDescSortedArrayofCards } from "../utils";
 import { Card } from "./Card";
@@ -8,12 +7,25 @@ import { Player } from "./Player";
 
 export class Players {
     playerList: Player[]; // static list of players which entered the game (on game start we delete ones who cant participate)
-    playersStillInThisRound: Player[]; // everyone who has not folded since the start of the game
-    playersLeftToReact: Player[]; // everyone who has not folded and is not all in
-
     bigBlindPlayer: Player;
     smallBlindPlayer: Player;
     activePlayer: Player;
+    winners: Player[] = [];
+
+    // maxmimum amount of bets of one person in this round
+    get maxSumOfIndividualBets(): number {
+        return Math.max(...this.playerList.map(player => player.sumOfPersonalBetsInThisRound));
+    }
+
+    // everyone who has not folded since the start of the game
+    get playersStillInThisRound(): Player[] {
+        return this.playerList.filter(player => !player.hasFolded);
+    }
+
+    // everyone who has not folded and is not all in
+    get playersLeftToReact(): Player[] {
+        return this.playersStillInThisRound.filter(player => !player.isAllIn).filter(player => !player.hasReacted || player.hasReacted && player.sumOfPersonalBetsInThisRound < this.maxSumOfIndividualBets);
+    }
 
     constructor(amountOfHumanPlayers: number, initialMoney: number) {
         const playerList = Array.from({ length: amountOfHumanPlayers }, (_, i) => {
@@ -22,65 +34,35 @@ export class Players {
             return new Player(
                 playerName,
                 id,
-                initialMoney
+                initialMoney,
+                this
             );
         });
         this.playerList = playerList;
-        this.playersStillInThisRound = playerList;
-        this.playersLeftToReact = playerList;
-
-        this.bigBlindPlayer = playerList[0];
-        this.smallBlindPlayer = playerList[1];
+        this.smallBlindPlayer = playerList[0];
+        this.bigBlindPlayer = playerList[1];
         this.activePlayer = this.smallBlindPlayer;
 
         makeAutoObservable(this);
     }
 
     passBlinds() {
-        const { bigBlindPlayer: prevBigBlindPlayer, playerList: accessiblePlayers } = this;
-        const prevBigBlindPlayerIndex = accessiblePlayers.findIndex(player => player.id === prevBigBlindPlayer.id);
-        this.bigBlindPlayer = accessiblePlayers[prevBigBlindPlayerIndex + 1] || accessiblePlayers[0];
-        const bigBlindPlayerIndex = accessiblePlayers.findIndex(player => player.id === this.bigBlindPlayer.id);
-        this.smallBlindPlayer = accessiblePlayers[bigBlindPlayerIndex + 1] || accessiblePlayers[0];
+        const { smallBlindPlayer: prevSmallBlindPlayer, playerList: accessiblePlayers } = this;
+        const prevSmallBlindPlayerIndex = accessiblePlayers.findIndex(player => player.id === prevSmallBlindPlayer.id);
+        this.smallBlindPlayer = accessiblePlayers[prevSmallBlindPlayerIndex + 1] || accessiblePlayers[0];
+        const smallBlindPlayerIndex = accessiblePlayers.findIndex(player => player.id === this.smallBlindPlayer.id);
+        this.bigBlindPlayer = accessiblePlayers[smallBlindPlayerIndex + 1] || accessiblePlayers[0];
     }
 
-    passMove(store: Store) {
-        const isEveryoneAllInOrFold = this.playerList.every(player => player.isAllIn || player.hasFolded);
-        store.isEveryoneAllInOrFold = isEveryoneAllInOrFold;
-        if (isEveryoneAllInOrFold) {
-            this.showAllCards();
-            return store.startNextRound();
-        }
 
-        this.updatePlayerAbilities(store);
-
-        const areThereAnyPlayersToReact = this.playersLeftToReact.length > 0;
-        if (!areThereAnyPlayersToReact) {
-            store.startNextRound();
-            return;
-        }
-
-        this.activePlayer = this.getNextActivePlayer();
-    }
-
-    updatePlayerAbilities(store: Store) {
-        // player can't continue playing in this round if: hasFolded
-        this.playersStillInThisRound = this.playerList.filter(player => !player.hasFolded);
-        // if everyone else folds, the last player wins
-        if (this.playersStillInThisRound.length === 1) {
-            return store.endGame();
-        }
-
-        // player can react to the bet if: !isAllIn && !hasFolded
-        this.playersLeftToReact = this.playersStillInThisRound.filter(player => !player.isAllIn).filter(player => !player.hasReacted || player.hasReacted && player.sumOfPersonalBetsInThisRound < store.maxSumOfIndividualBets);
-        this.playersLeftToReact.forEach(player => {
-            player.hasReacted = false;
-            player.canCheck = player.sumOfPersonalBetsInThisRound === store.maxSumOfIndividualBets;
-            player.canSupportBet = (player.sumOfPersonalBetsInThisRound + player.moneyLeft) >= store.maxSumOfIndividualBets;
-            player.canRaise = (player.sumOfPersonalBetsInThisRound + player.moneyLeft) > store.maxSumOfIndividualBets;
-            player.betToPayToContinue = store.maxSumOfIndividualBets - player.sumOfPersonalBetsInThisRound;
-        });
-    }
+    // updatePlayerAbilities(store: Store) {
+    //     // TODO: this maybe could be removed
+    //     // if everyone else folds, the last player wins
+    //     if (this.playersStillInThisRound.length === 1) {
+    //         console.log('🚀 ~ file: Players.ts ~ line 82 ~ Players ~ updatePlayerAbilities ~ this.playersStillInThisRound.length', this.playersStillInThisRound.length)
+    //         return store.endGame();
+    //     }
+    // }
 
     getNextActivePlayer() {
         const { activePlayer, playersLeftToReact } = this;
@@ -93,13 +75,12 @@ export class Players {
         this.playerList.filter(player => !player.hasFolded).forEach(player => player.showCards());
     }
 
-    getWinnersOfRound(store: Store) {
+    getWinnersOfRound(cardsOnTheDesk: Card[]) {
         const sidePots = this.calculateSidePots();
-        if (sidePots.length) {
-            sidePots.forEach(pot => {
-                this.getWinnerOfPot(pot.money, store, pot.playersEligible)
-            })
-        }
+        sidePots.forEach(pot => {
+            this.getWinnerOfPot(pot.money, cardsOnTheDesk, pot.playersEligible)
+        })
+        return this.winners.filter(player => player.winAmount > 0);
     }
 
     private calculateSidePots() {
@@ -154,16 +135,16 @@ export class Players {
 
     }
 
-    private getWinnerOfPot(potMoney: number, store: Store, playersEligibleInThisPot: Player[]) {
+    private getWinnerOfPot(potMoney: number, cardsOnTheDesk: Card[], playersEligibleInThisPot: Player[]) {
         // if there is only one player left, he is the winner
         if (playersEligibleInThisPot.length === 1) {
             const player = playersEligibleInThisPot[0];
-            this.UpdateWinnersInStore(player, potMoney, store);
+            this.UpdateWinners(this.winners, player, potMoney);
             return;
         }
 
         // there is more than one player so check players for winner of the pot
-        const playersAtCombination: PlayersAtCombinations = this.checkPlayersHandCombinations(playersEligibleInThisPot, [...store.cardsOnTheDesk])
+        const playersAtCombination: PlayersAtCombinations = this.checkPlayersHandCombinations(playersEligibleInThisPot, [...cardsOnTheDesk])
         const combinations = [COMBINATIONS.ROYAL_FLUSH, COMBINATIONS.STRAIGHT_FLUSH, COMBINATIONS.FOUR_OF_KIND, COMBINATIONS.FULL_HOUSE, COMBINATIONS.FLUSH, COMBINATIONS.STRAIGHT, COMBINATIONS.THREE_OF_KIND, COMBINATIONS.TWO_PAIRS, COMBINATIONS.PAIR, COMBINATIONS.HIGH_CARD];
         for (const combinationName of combinations) {
             const playersWithThisCombination = playersAtCombination[combinationName];
@@ -173,10 +154,10 @@ export class Players {
                 continue;
             } else if (amountOfPlayersWithThisCombination === 1) {
                 const player = playersWithThisCombination[0];
-                this.UpdateWinnersInStore(player, potMoney, store);
+                this.UpdateWinners(this.winners, player, potMoney);
                 return;
             } else {
-                this.resolveTieInSameCombination(playersWithThisCombination, potMoney, store);
+                this.resolveTieInSameCombination(playersWithThisCombination, potMoney);
                 return;
             }
         }
@@ -302,13 +283,13 @@ export class Players {
         return playersAtCombination;
     }
 
-    private resolveTieInSameCombination(playersWithSameCardCombination: Player[], potMoney: number, store: Store) {
+    private resolveTieInSameCombination(playersWithSameCardCombination: Player[], potMoney: number) {
         // Checking combination and kicker cards for breaking tie
         for (let i = 0; i < 5; i++) {
             const highestTieBreakerCardCost: CardCost = Math.max(...playersWithSameCardCombination.map(player => player.bestCombinationCards[i].cardCost)) as CardCost;
             const players = playersWithSameCardCombination.filter(player => player.bestCombinationCards[i].cardCost === highestTieBreakerCardCost);
             if (players.length === 1) {
-                this.UpdateWinnersInStore(players[0], potMoney, store);
+                this.UpdateWinners(this.winners, players[0], potMoney);
                 return
             } else {
                 playersWithSameCardCombination = [...players];
@@ -317,31 +298,29 @@ export class Players {
         }
         // there is still a tie so we split the pot
         if (playersWithSameCardCombination.length > 1) {
-            this.splitPotBetweenPlayers(playersWithSameCardCombination, potMoney, store)
+            this.splitPotBetweenPlayers(playersWithSameCardCombination, potMoney)
             return;
         }
     }
 
-    private splitPotBetweenPlayers(players: Player[], moneyInPot: number, store: Store) {
+    private splitPotBetweenPlayers(players: Player[], moneyInPot: number) {
         const approxSumToWin = Math.floor(moneyInPot / players.length);
         for (const player of players) {
-            this.UpdateWinnersInStore(player, approxSumToWin, store);
+            this.UpdateWinners(this.winners, player, approxSumToWin);
         }
         return;
     }
 
-    private UpdateWinnersInStore(player: Player, winMoney: number, store: Store) {
-        const alreadyIsWinnerPlayerIndex = store.winners.findIndex(p => p.id === player.id)
+    private UpdateWinners(winners: Player[], player: Player, winMoney: number) {
+        const alreadyIsWinnerPlayerIndex = winners.findIndex(p => p.id === player.id)
         if (alreadyIsWinnerPlayerIndex > -1) {
-            let winner = store.winners[alreadyIsWinnerPlayerIndex];
+            let winner = winners[alreadyIsWinnerPlayerIndex];
             winner.winAmount += winMoney;
-            store.winners.splice(alreadyIsWinnerPlayerIndex, 1, winner);
+            winners.splice(alreadyIsWinnerPlayerIndex, 1, winner);
         } else {
             player.winAmount = winMoney;
-            store.winners.push(player)
+            winners.push(player)
         }
     }
-
-
 
 }

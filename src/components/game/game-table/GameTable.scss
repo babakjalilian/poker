@@ -1,3 +1,7 @@
+@mixin translateCard($nthChild) {
+  transform: translateX(324 - ($nthChild - 2) * 62px);
+}
+
 .gameTable {
   position: relative;
   width: 370px;
@@ -42,9 +46,6 @@
       min-height: 75px;
     }
     .card {
-      //   position: absolute;
-      //   right: -200px;
-      transform: translateX(200px);
       -webkit-animation: slide 0.5s forwards;
       animation: slide 0.5s forwards;
       opacity: 0.8;
@@ -52,6 +53,11 @@
         transform: rotateY(180deg);
         animation: flip 0.5s forwards;
         animation-delay: 0.4s;
+      }
+      @for $i from 2 through 6 {
+        &:nth-child(#{$i}) {
+          @include translateCard($i);
+        }
       }
     }
   }
