@@ -27,6 +27,7 @@ const Player: React.FC<PlayerProps> = observer(({ playerId }) => {
                     {store.players?.smallBlindPlayer === playerAtThisSlot && "small blind"}
                 </div> */}
                 <div className="playerInfoBody">
+                    {/* <div className="background-animation"></div> */}
                     <div className="playerCards">
                         {
                             cards.map(({ suitName, suitSymbol, cardName, cardSymbol, isFaded, isHidden }) => {
