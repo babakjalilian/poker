@@ -2,6 +2,7 @@ import { observer } from "mobx-react";
 import React from "react";
 import { useStore } from "../../../useStore";
 import Card from "../card/Card";
+import Button from "./button/Button";
 import "./GameTable.scss";
 
 
@@ -10,6 +11,7 @@ const GameTable: React.FC = observer(() => {
     const store = useStore();
     return (
         <div className="gameTable noSelect">
+            {store.isRoundFinished && <Button />}
             <div className="tableCardsContainer">
                 <div className="placeholder-container">
                     <div className="card-placeholder"></div>

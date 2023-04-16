@@ -42,6 +42,7 @@ export class Players {
         this.smallBlindPlayer = playerList[0];
         this.bigBlindPlayer = playerList[1];
         this.activePlayer = this.smallBlindPlayer;
+        this.winners = [];
 
         makeAutoObservable(this);
     }

@@ -20,6 +20,7 @@ class Store {
     gameInfo: string[];
     isGameActive = false; // game state, set false on end and true on start
     activeRound: POKER_ROUNDS;
+    isRoundFinished: boolean = false;
 
     get blinds() {
         return {
@@ -55,6 +56,7 @@ class Store {
         this.winners = [];
         this.gameInfo = [];
         this.sumOfBets = 0;
+        this.isRoundFinished = false;
 
         this.startRound_BlindCall()
     }
@@ -86,6 +88,7 @@ class Store {
         this.players.winners = [];
         this.gameInfo = [];
         this.sumOfBets = 0;
+        this.isRoundFinished = false;
 
         this.players.passBlinds();
     }
@@ -200,20 +203,12 @@ class Store {
 
     endGame() {
         this.isGameActive = false;
+        this.isRoundFinished = true;
         this.showGameResults();
-        setTimeout(() => {
-            this.unfadeAllCards();
-            this.payWinners();
-
-            if (this.mustGameBeRestarted) {
-                this.gameInfo.push(`Game over. Game will restart automatically.`);
-                this.cardsOnTheDesk = [];
-                return setTimeout(() => {
-                    return this.startInitialGame();
-                }, 3000);
-            }
-            return this.continueGame();
-        }, 5000)
+        this.payWinners();
+        if (this.mustGameBeRestarted) {
+            this.gameInfo.push(`Game is over and ${this.winners[0].name} won the game.`);
+        }
     }
 
     showGameResults() {
