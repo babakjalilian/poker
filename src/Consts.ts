@@ -69,3 +69,16 @@ export enum COMBINATIONS {
     STRAIGHT_FLUSH = "STRAIGHT_FLUSH",
     ROYAL_FLUSH = "ROYAL_FLUSH",
 }
+
+export enum COMBINATION_NAMES_HUMAN {
+    HIGH_CARD = "high card",
+    PAIR = "pair",
+    TWO_PAIRS = "two pairs",
+    THREE_OF_KIND = "three of kind",
+    STRAIGHT = "straight", // add ace - two ... street
+    FLUSH = "flush",
+    FULL_HOUSE = "full house",
+    FOUR_OF_KIND = "four of kind",
+    STRAIGHT_FLUSH = "straight flush",
+    ROYAL_FLUSH = "royal flush",
+}

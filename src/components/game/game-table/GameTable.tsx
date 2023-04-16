@@ -29,11 +29,11 @@ const GameTable: React.FC = observer(() => {
                 <br />
             </div>
             <div className="tableInfo">
-                <div>{store?.sumOfBets} €</div>
+                {store?.sumOfBets} €
             </div>
             <div className="gameInfo">
                 <ul>
-                    <li>Player-1 wins with [pair]</li>
+                    {store?.gameInfo?.map((message) => (<li key={Math.random()}>{message}</li>))}
                 </ul>
             </div>
         </div>

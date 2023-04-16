@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { BET_ACTION, COMBINATIONS, POKER_ROUNDS } from './Consts';
+import { BET_ACTION, COMBINATIONS, COMBINATION_NAMES_HUMAN, POKER_ROUNDS } from './Consts';
 import { Card } from "./modules/Card";
 import { Deck } from "./modules/Deck";
 import { Player } from "./modules/Player";
@@ -225,6 +225,7 @@ class Store {
         this.players.getWinnersOfRound(this);
 
         this.winners = this.winners.filter(player => player.winAmount);
+        this.logWinners();
         const { winners } = this;
 
         for (const winner of winners) {
@@ -247,6 +248,14 @@ class Store {
 
     unfadeAllCards() {
         this.allCards.forEach(card => card.unfade());
+    }
+
+    logWinners() {
+        this.winners.forEach(winner => {
+            const { name, winAmount, bestCombinationName } = winner;
+            const message = `${name} wins ${winAmount}€ [${COMBINATION_NAMES_HUMAN[bestCombinationName]}]`;
+            this.gameInfo.push(message);
+        });
     }
 }
 

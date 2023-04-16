@@ -1,13 +1,13 @@
 .gameTable {
   position: relative;
   width: 370px;
-  height: 170px;
+  height: 180px;
   border-radius: 500px;
   padding-top: 1.5rem;
   box-sizing: border-box;
   background-color: var(--bg-darkgreen);
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   margin: auto;
@@ -16,6 +16,7 @@
     display: flex;
     justify-content: left;
     gap: 6px;
+    left: 37px;
     width: 100%;
     position: absolute;
     .card-placeholder {
@@ -34,8 +35,12 @@
     justify-content: left;
     gap: 12px;
     width: 100%;
-    height: 100%;
-    padding-left: 75px;
+    height: 75px;
+    padding-left: 50px;
+    &::before {
+      content: '';
+      min-height: 75px;
+    }
     .card {
       //   position: absolute;
       //   right: -200px;
@@ -52,13 +57,19 @@
   }
 
   .tableInfo {
-    margin-top: 10px;
+    display: flex;
+    align-items: center;
     font-size: 1.3em;
     font-weight: 600;
   }
 
   .gameInfo {
-    margin-top: 10px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
 
     ul {
       margin: 0;

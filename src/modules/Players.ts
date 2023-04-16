@@ -97,25 +97,21 @@ export class Players {
         const sidePots = this.calculateSidePots();
         if (sidePots.length) {
             sidePots.forEach(pot => {
-                let potMoney = pot.money;
-                let players = pot.playersEligible.map(player => {
-                    return player.name
-                })
                 this.getWinnerOfPot(pot.money, store, pot.playersEligible)
             })
         }
     }
 
     private calculateSidePots() {
-        const { playerList } = this;
+        const players = [...this.playerList];
         let pots = [];
         let previousAllIn = 0
-        playerList.sort((a, b) => a.sumOfPersonalBetsInThisRound - b.sumOfPersonalBetsInThisRound).forEach(p => {
+        players.sort((a, b) => a.sumOfPersonalBetsInThisRound - b.sumOfPersonalBetsInThisRound).forEach(p => {
             if (p.isAllIn) {
                 let pot = { name: `${p.name}-allIn`, money: 0, playersEligible: [] }
                 let allInMonyByPlayer = p.sumOfPersonalBetsInThisRound;
                 if (allInMonyByPlayer > previousAllIn) {
-                    playerList.forEach(player => {
+                    players.forEach(player => {
                         let moneyToAdd: number = 0
 
                         if (player.sumOfPersonalBetsInThisRound > previousAllIn && player.sumOfPersonalBetsInThisRound <= allInMonyByPlayer) {
@@ -139,7 +135,7 @@ export class Players {
 
         let extraPot = { name: `extra-pot`, money: 0, playersEligible: [] }
 
-        playerList.forEach(player => {
+        players.forEach(player => {
             if (player.sumOfPersonalBetsInThisRound > previousAllIn) {
 
                 let extraMoney = player.sumOfPersonalBetsInThisRound - previousAllIn;
