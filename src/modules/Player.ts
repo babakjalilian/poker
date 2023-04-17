@@ -4,6 +4,7 @@ import Store from "../Store";
 import { PlayerType } from "../types";
 import { Card } from "./Card";
 import { Players } from './Players';
+import { getGameEventText } from "../utils";
 
 export class Player implements PlayerType {
     id = 0;
@@ -51,11 +52,13 @@ export class Player implements PlayerType {
     fold(store: Store) {
         this.hasFolded = true;
         this.hasReacted = true;
+        store.logGameEvent(`${this.name}: folds`);
         store.passMove();
     }
 
     check(store: Store) {
         this.hasReacted = true;
+        store.logGameEvent(`${this.name}: checks`);
         store.passMove();
     }
 
@@ -91,6 +94,9 @@ export class Player implements PlayerType {
         if (this.moneyLeft === 0) {
             this.isAllIn = true;
         }
+
+        const gameEventText = getGameEventText(name, betAmount, betAction);
+        store.logGameEvent(gameEventText);
 
         store.passMove();
 

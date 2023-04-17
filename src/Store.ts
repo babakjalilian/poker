@@ -21,6 +21,7 @@ class Store {
     isGameActive = false; // game state, set false on end and true on start
     activeRound: POKER_ROUNDS;
     isRoundFinished: boolean = false;
+    gameLog = [];
 
     get blinds() {
         return {
@@ -48,21 +49,22 @@ class Store {
     }
 
     startInitialGame() {
-        console.log("game started");
         this.players = new Players(this.amountOfHumanPlayers, this.initialDeposit);
         this.deck = new Deck();
         this.cardsOnTheDesk = [];
         this.isGameActive = true;
         this.winners = [];
         this.gameInfo = [];
+        this.gameLog = [];
         this.sumOfBets = 0;
         this.isRoundFinished = false;
-
+        this.logGameEvent("<<<< GAME START >>>>");
         this.startRound_BlindCall()
     }
 
     continueGame() {
         this.performContinuingGameReset();
+        this.logGameEvent("<<<< GAME START >>>>");
         this.startRound_BlindCall();
     }
 
@@ -95,6 +97,7 @@ class Store {
 
     startRound_BlindCall() {
         this.activeRound = POKER_ROUNDS.BLIND_CALL;
+        this.logGameEvent("<<< BLIND CALL >>>");
         /* big and small blinds */
         const { smallBlind, bigBlind } = this.blinds;
         const { smallBlindPlayer, bigBlindPlayer } = this.players;
@@ -110,11 +113,6 @@ class Store {
             }
         }
 
-        /* players decide whether to continue playing with these cards or fold (starting from the small blind player) */
-        // this.players.updatePlayerAbilities(this);
-        // if (this.players.playersStillInThisRound.length === 1) {
-        //     return this.endGame();
-        // }
         this.players.activePlayer = this.players.bigBlindPlayer;
         this.players.activePlayer = this.players.getNextActivePlayer();
     }
@@ -136,16 +134,19 @@ class Store {
                     const randomCard = this.deck.pickRandomCard();
                     this.cardsOnTheDesk.push(randomCard);
                 }
+                this.logGameEvent("<<< FLOP >>>");
                 break;
             }
             case POKER_ROUNDS.FLOP: {
                 this.activeRound = POKER_ROUNDS.TURN;
+                this.logGameEvent("<<< TURN >>>");
                 const randomCard = this.deck.pickRandomCard();
                 this.cardsOnTheDesk.push(randomCard);
                 break;
             }
             case POKER_ROUNDS.TURN: {
                 this.activeRound = POKER_ROUNDS.RIVER;
+                this.logGameEvent("<<< RIVER >>>");
                 const randomCard = this.deck.pickRandomCard();
                 this.cardsOnTheDesk.push(randomCard);
                 break;
@@ -165,10 +166,6 @@ class Store {
                 return this.startNextRound();
             }
 
-            // this.players.updatePlayerAbilities(this);
-            // if (this.players.playersStillInThisRound.length === 1) {
-            //     return this.endGame();
-            // }
             let nextActivePlayer = this.players.smallBlindPlayer;
             if (this.players.playerList.length === 2) {
                 nextActivePlayer = this.players.bigBlindPlayer;
@@ -233,8 +230,18 @@ class Store {
         this.winners.forEach(winner => {
             const { name, winAmount, bestCombinationName } = winner;
             const message = `${name} wins ${winAmount}€ [${COMBINATION_NAMES_HUMAN[bestCombinationName]}]`;
+            this.logGameEvent(message);
             this.gameInfo.push(message);
         });
+    }
+
+    logGameEvent(event: string) {
+        const date = new Date();
+        const eventTime = date.toLocaleString('default', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })
+        const gameEvent = `${eventTime}: ${event}`;
+        this.gameLog.push(gameEvent);
+        const logBody = document.getElementById('gameLog');
+        logBody?.lastElementChild.scrollIntoView();
     }
 
     setCurrentPage(pageToShow: PageName) {

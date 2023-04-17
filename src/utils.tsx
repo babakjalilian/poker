@@ -1,3 +1,4 @@
+import { BET_ACTION } from "./Consts";
 import { Card } from "./modules/Card";
 import { SuitSymbol } from "./types";
 
@@ -37,36 +38,28 @@ export const getCardsInStraightIfThereIsAny = (rawCardsToCheck: Card[]): Card[] 
             }
         }
     }
-
-    // const cardCostsAlreadyChecked: CardCost[] = [], cardsToCheck: Card[] = [];
-    // let cardsInStraight: Card[] = [];
-    // let previousCardCost = 0, amountOfCardsInPotentialStraight = 0;
-    // const isAceBetweenCards = !!rawCardsToCheck.filter(({ cardCost }) => cardCost === 14).length;
-    // rawCardsToCheck.forEach(card => {
-    //     const { cardCost } = card;
-    //     if (!cardCostsAlreadyChecked.includes(cardCost)) {
-    //         cardCostsAlreadyChecked.push(cardCost);
-    //         cardsToCheck.push(card);
-    //     }
-    // });
-    // for (const card of cardsToCheck) {
-    //     const areCardsConsecutive = card.cardCost === previousCardCost - 1;
-    //     if (areCardsConsecutive) {
-    //         amountOfCardsInPotentialStraight++;
-    //         cardsInStraight.push(card);
-    //         const doCardsLookLikeBabyStraight = isAceBetweenCards && cardsInStraight[0].cardCost === 5 && cardsInStraight.length === 4;
-    //         if (doCardsLookLikeBabyStraight) {
-    //             const aceCard = rawCardsToCheck.find(card => card.cardCost === 14)!;
-    //             return [...cardsInStraight, aceCard];
-    //         }
-    //     } else {
-    //         amountOfCardsInPotentialStraight = 1;
-    //         cardsInStraight = [card];
-    //     }
-    //     previousCardCost = card.cardCost;
-    //     if (cardsInStraight.length === 5) {
-    //         return cardsInStraight;
-    //     }
-    // }
     return straightCards;
+}
+
+export function getGameEventText(name: string, betAmount: number, betAction: BET_ACTION) {
+    switch (betAction) {
+        case BET_ACTION.RAISE: {
+            return `${name}: raises bet (+${betAmount})`
+        }
+        case BET_ACTION.SUPPORT: {
+            return `${name}: supports bet (+${betAmount})`
+        }
+        case BET_ACTION.ALL_IN: {
+            return `${name}: goes all in (+${betAmount})`
+        }
+        case BET_ACTION.BIG_BLIND: {
+            return `${name}: big blind (+${betAmount})`
+        }
+        case BET_ACTION.SMALL_BLIND: {
+            return `${name}: small blind (+${betAmount})`
+        }
+        default:
+            console.error(`unsupported betAction: "${betAction}"`);
+            return `unsupported betAction: "${betAction}"`;
+    }
 }
