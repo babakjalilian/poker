@@ -37,12 +37,10 @@ const Game: React.FC<GameProps> = observer(() => {
                 </div>
             </div>
 
-            <div className="controls-container">
-                <div className="gameLogContainer">
-                    <GameLog></GameLog>
-                </div>
-                <BetControls />
+            <div className="game-log-container">
+                <GameLog></GameLog>
             </div>
+            <BetControls />
         </>
     );
 });

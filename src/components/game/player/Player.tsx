@@ -21,12 +21,12 @@ const Player: React.FC<PlayerProps> = observer(({ playerId }) => {
     const cards = playerAtThisSlot.cards;
     return (
         <div className={`player noSelect  player-${playerId} ${playerAtThisSlot?.hasFolded ? "folded" : ""}`}>
-            <div className={`playerInfo ${store?.isGameActive && store.players?.activePlayer === playerAtThisSlot ? "activePlayerInfo" : ""}`}>
+            <div className={`playerInfo ${store?.isGameActive && store.players?.activePlayer === playerAtThisSlot ? "activePlayerInfo" : ""} ${store?.winners?.includes(playerAtThisSlot) ? "winnerPlayerInfo" : ""}`}>
                 {/* <div className="playerInfoText">
                     {store.players?.bigBlindPlayer === playerAtThisSlot && "big blind"}
                     {store.players?.smallBlindPlayer === playerAtThisSlot && "small blind"}
                 </div> */}
-                <div className="playerInfoBody">
+                <div className={`playerInfoBody`}>
                     {/* <div className="background-animation"></div> */}
                     <div className="playerCards">
                         {

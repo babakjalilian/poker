@@ -84,46 +84,42 @@ const BetControls: React.FC = observer(() => {
 
     return (
         store.isGameActive && <div className='bet-controls-container noSelect'>
-            <div>{store.players.activePlayer?.name}</div>
-            <div className="controls">
+            <div className="bet-amount-container">
                 <div className="min-bet-value-label">min</div>
                 <div className="bet-amount">
                     <input type="number" id="betAmountInput" value={sBetValue} onChange={updateBetValue} />
+                    <div className='slider-container'>
+                        <input type="range" min={minBetValue} max={store.players.activePlayer?.moneyLeft} value={betValue} id="betAmountSlider" onChange={updateBetValue} />
+                    </div>
                 </div>
                 <div className="max-bet-value-label">max</div>
-                <div >money</div>
-
-                <div className='slider-container'>
-                    <input type="range" min={minBetValue} max={store.players.activePlayer?.moneyLeft} value={betValue} id="betSlider" onChange={updateBetValue} />
-                </div>
-                <div className="player-money-left">
-                    {store.players.activePlayer?.moneyLeft} €
-                </div>
-                <div>
-                    <div id="foldBtn" className='control-btn noSelect' onClick={handleFold} >fold</div>
-                </div>
-                <div>
-                    {(store.players.activePlayer?.canSupportBet || store.players.activePlayer?.canCheck) &&
-                        <div id="betCheckBtn" className='control-btn noSelect' onClick={handleBetOrCheck}>
-                            {store.players.activePlayer?.canCheck ? "check" : "bet"}
-                            <br />
-                            {store.players.activePlayer?.betToPayToContinue}
-                        </div>
-                    }
-                </div>
-                <div>
+            </div>
+            <div className="action-buttons-container">
+                <div className='btn-container'>
                     {(betValue > store.players?.activePlayer.betToPayToContinue && store.players?.activePlayer?.canRaise) &&
                         <div id="raiseBtn" onClick={handleRaise} className='control-btn noSelect'>
-                            raise
-                            <br />
-                            {betValue}
+                            RAISE {betValue}
                         </div>
                     }
                 </div>
-                <div>
+                <div className='btn-container'>
+                    <div id="foldBtn" className='control-btn noSelect' onClick={handleFold} >FOLD</div>
+                </div>
+                <div className='btn-container'>
+                    {(store.players.activePlayer?.canSupportBet || store.players.activePlayer?.canCheck) &&
+                        <div id="betCheckBtn" className='control-btn noSelect' onClick={handleBetOrCheck}>
+                            {store.players.activePlayer?.canCheck ? "CHECK" : "BET"} {store.players.activePlayer?.betToPayToContinue}
+                        </div>
+                    }
+                </div>
+                <div className='btn-container'>
                     {store.players?.activePlayer?.moneyLeft > 0 && <div id="allInBtn" className='control-btn noSelect' onClick={handleAllIn} >ALL IN</div>}
                 </div>
-                <div className="peak-cards-btn noSelect" onMouseDown={handlePeakCards} onMouseUp={handleUnpeakCards} onMouseLeave={handleUnpeakCards} >peak cards</div>
+            </div>
+            <div className="peak-cards-btn-container">
+                <div className='btn-container'>
+                    <div className="control-btn noSelect" id="peakCardsBtn" onMouseDown={handlePeakCards} onMouseUp={handleUnpeakCards} onMouseLeave={handleUnpeakCards} >PEAK CARDS</div>
+                </div>
             </div>
         </div>
     )

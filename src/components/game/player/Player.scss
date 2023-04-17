@@ -27,31 +27,7 @@
     padding: 5px;
     border-radius: 10px;
 
-    &.activePlayerInfo {
-      color: black;
-      margin-bottom: 8px;
-      transform: scale(1.05);
-      .playerInfoBody {
-        background-image: none;
-        box-shadow: 0px 12px 13px 8px rgba(0, 0, 0, 0.3);
-
-        &::before {
-          content: '';
-          position: absolute;
-          width: 300%;
-          height: 100%;
-          top: 0;
-          z-index: -1;
-          background: linear-gradient(268deg, rgba(0, 0, 0, 0) 35%, rgba(255, 255, 255, 0.6) 50%, rgba(0, 0, 0, 0) 65%) rgba(98, 245, 71, 0.9);
-          // background: linear-gradient(268deg, rgba(0, 0, 0, 0) 33%, rgba(255, 255, 255, 0.9) 50%, rgba(0, 0, 0, 0) 66%)
-          //   #c2b336;
-          animation: MOVE-BG 1.5s infinite linear;
-        }
-      }
-    }
-
     .playerInfoBody {
-      /* background-color: var(--bg-darkgreen); */
       background-image: linear-gradient(41deg, #3e3e3e 0%, #cccccc 74%);
       box-shadow: 0 3px 14px #000;
       border-radius: 8px;
@@ -80,6 +56,36 @@
         color: white;
         text-align: center;
       }
+    }
+
+    &.activePlayerInfo,
+    &.winnerPlayerInfo {
+      color: black;
+      margin-bottom: 8px;
+      transform: scale(1.05);
+      .playerInfoBody {
+        background-image: none;
+        box-shadow: 0px 12px 13px 8px rgba(0, 0, 0, 0.3);
+
+        &::before {
+          content: "";
+          position: absolute;
+          width: 300%;
+          height: 100%;
+          top: 0;
+          z-index: -1;
+          animation: MOVE-BG 1.5s infinite linear;
+        }
+      }
+    }
+
+    &.activePlayerInfo .playerInfoBody::before {
+      background: linear-gradient(268deg, rgba(0, 0, 0, 0) 35%, rgba(255, 255, 255, 0.6) 50%, rgba(0, 0, 0, 0) 65%)
+        rgba(98, 245, 71, 0.9);
+    }
+    &.winnerPlayerInfo .playerInfoBody::before {
+      background: linear-gradient(268deg, rgba(0, 0, 0, 0) 33%, rgba(255, 255, 255, 0.9) 50%, rgba(0, 0, 0, 0) 66%)
+        #e9d426;
     }
   }
 
@@ -139,25 +145,6 @@
   -ms-user-select: none;
   user-select: none;
 }
-
-// .stage {
-//   animation: animateBg 2s infinite linear;
-//   background-color: #fff;
-//   background-image: linear-gradient(90deg, #da3287, #ffde5e, #da3287, #ffde5e);
-//   background-size: 300% 100%;
-//   box-shadow: 0 3px 14px #000;
-//   border-radius: 1rem;
-//   height: 200px;
-//   width: 200px;
-// }
-// @keyframes animateBg {
-//   0% {
-//     background-position: 0 0;
-//   }
-//   100% {
-//     background-position: 100% 0;
-//   }
-// }
 
 @keyframes MOVE-BG {
   from {
