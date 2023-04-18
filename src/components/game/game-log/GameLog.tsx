@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import React from 'react';
-import "./GameLog.scss";
 import { useStore } from '../../../useStore';
+import "./GameLog.scss";
 
 const GameLog: React.FC = observer(() => {
     const store = useStore()

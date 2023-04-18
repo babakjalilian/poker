@@ -1,8 +1,8 @@
 import { makeAutoObservable } from "mobx";
 import { BET_ACTION, COMBINATIONS } from "../Consts";
-import Store from "../Store";
+import Store from "./Store";
 import { PlayerType } from "../types";
-import { Card } from "./Card";
+import Card from "./Card";
 import { Players } from './Players';
 import { getGameEventText } from "../utils";
 

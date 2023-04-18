@@ -1,5 +1,5 @@
+import Card from "./stores/Card";
 import { BET_ACTION } from "./Consts";
-import { Card } from "./stores/Card";
 import { SuitSymbol } from "./types";
 
 export const getDescSortedArrayofCards = (cardA: Card, cardB: Card): any => {

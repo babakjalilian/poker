@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext } from "react";
-import Store from "./Store";
+import Store from "./stores/Store";
 
 let store: Store;
 

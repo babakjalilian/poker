@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 import { cardCosts, COMBINATIONS, humanPlayerNames, suitNames, suitSymbols } from "../Consts";
 import { CardCost, PlayersAtCombinations } from "../types";
 import { getCardsInFlushIfThereIsAny, getCardsInStraightIfThereIsAny, getDescSortedArrayofCards } from "../utils";
-import { Card } from "./Card";
+import Card from "./Card";
 import { Player } from "./Player";
 
 export class Players {
@@ -54,16 +54,6 @@ export class Players {
         const smallBlindPlayerIndex = accessiblePlayers.findIndex(player => player.id === this.smallBlindPlayer.id);
         this.bigBlindPlayer = accessiblePlayers[smallBlindPlayerIndex + 1] || accessiblePlayers[0];
     }
-
-
-    // updatePlayerAbilities(store: Store) {
-    //     // TODO: this maybe could be removed
-    //     // if everyone else folds, the last player wins
-    //     if (this.playersStillInThisRound.length === 1) {
-    //         console.log('🚀 ~ file: Players.ts ~ line 82 ~ Players ~ updatePlayerAbilities ~ this.playersStillInThisRound.length', this.playersStillInThisRound.length)
-    //         return store.endGame();
-    //     }
-    // }
 
     getNextActivePlayer() {
         const { activePlayer, playersLeftToReact } = this;

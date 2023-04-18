@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { cardNames, suitNames } from "../Consts";
 import { DeckType } from "../types";
-import { Card } from "./Card";
+import Card from "./Card";
 
 export class Deck implements DeckType {
     cards = [];

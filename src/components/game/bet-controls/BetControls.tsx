@@ -1,18 +1,15 @@
 import { observer } from 'mobx-react';
-import React, { ChangeEvent, useCallback, useLayoutEffect, useState } from 'react';
-import { useStore } from '../../../useStore';
+import React, { ChangeEvent } from 'react';
 import "./BetControls.scss";
 
 
-interface BetControlsPropType {
-    sBetValue: string;
-    betValue: number;
-    minBetValue: number;
+interface BetControlsProps {
+    moneyLeft: number;
     canSupportBet: boolean;
     canCheck: boolean;
     canRaise: boolean;
-    moneyLeft: number;
     betToPayToContinue: number;
+    betValue: number;
     isGameActive: boolean;
     updateBetValue: (e: ChangeEvent<HTMLInputElement>) => void;
     handleFold: () => void;
@@ -23,16 +20,14 @@ interface BetControlsPropType {
     handleUnpeakCards: () => void;
 }
 
-const BetControls: React.FC<BetControlsPropType> = observer((
+const BetControls: React.FC<BetControlsProps> = observer((
     {
-        sBetValue,
-        betValue,
-        minBetValue,
+        moneyLeft,
         canSupportBet,
         canCheck,
         canRaise,
-        moneyLeft,
         betToPayToContinue,
+        betValue,
         isGameActive,
         updateBetValue,
         handleFold,
@@ -48,9 +43,9 @@ const BetControls: React.FC<BetControlsPropType> = observer((
             <div className="bet-amount-container">
                 <div className="min-bet-value-label">min</div>
                 <div className="bet-amount">
-                    <input type="number" id="betAmountInput" value={sBetValue} onChange={updateBetValue} />
+                    <input type="number" id="betAmountInput" value={betValue} onChange={updateBetValue} />
                     <div className='slider-container'>
-                        <input type="range" min={minBetValue} max={moneyLeft} value={betValue} id="betAmountSlider" onChange={updateBetValue} />
+                        <input type="range" min={betToPayToContinue} max={moneyLeft} value={betValue} id="betAmountSlider" onChange={updateBetValue} />
                     </div>
                 </div>
                 <div className="max-bet-value-label">max</div>

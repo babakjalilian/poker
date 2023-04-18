@@ -1,7 +1,7 @@
 import { BET_ACTION, COMBINATIONS } from "./Consts";
-import { Card } from "./stores/Card";
+import Card from "./stores/Card";
 import { Player } from "./stores/Player";
-import Store from "./Store";
+import Store from "./stores/Store";
 
 export type PageName = "Menu" | "Game" | "Settings";
 export type SuitName = "diamonds" | "clubs" | "hearts" | "spades";
@@ -22,6 +22,8 @@ export interface CardType {
 
     fade: () => any;
     unfade: () => any;
+    hide: () => any;
+    show: () => any;
 }
 
 export interface DeckType {
@@ -30,8 +32,8 @@ export interface DeckType {
 }
 
 export interface PlayerType {
-    name: string;
     id: number;
+    name: string;
     cards: Card[],
     bestCombinationCards: Card[];
     bestCombinationName: COMBINATIONS;
@@ -53,4 +55,6 @@ export interface PlayerType {
     allIn: (store: Store) => void;
     placeBet: (betAmount: number, store: Store, betAction: BET_ACTION) => void;
     pickCard: (cardToTake: Card) => void;
+    showCards: (cardToTake: Card) => void;
+    hideCards: (cardToTake: Card) => void;
 }
