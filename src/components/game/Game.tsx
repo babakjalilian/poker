@@ -1,4 +1,3 @@
-import { observer } from "mobx-react";
 import React from "react";
 import BetControlsContainer from "../../modules/BetControlsContainer";
 import PlayerContainer from "../../modules/PlayerContainer";
@@ -10,7 +9,7 @@ interface GameProps {
     name: string;
 }
 
-const Game: React.FC<GameProps> = observer(() => {
+const Game: React.FC<GameProps> = () => {
 
     return (
         <>
@@ -43,5 +42,5 @@ const Game: React.FC<GameProps> = observer(() => {
             <BetControlsContainer />
         </>
     );
-});
+};
 export default Game;

@@ -18,7 +18,7 @@ interface SettingProps {
 
 const availablePlayerAmount = [2, 3, 4];
 
-const Settings: React.FC<SettingProps> = observer((
+const Settings: React.FC<SettingProps> = (
     {
         amountOfHumanPlayers,
         setAmountOfHumanPlayers,
@@ -67,5 +67,5 @@ const Settings: React.FC<SettingProps> = observer((
             </div>
         </div>
     );
-});
+};
 export default Settings;

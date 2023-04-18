@@ -1,4 +1,3 @@
-import { observer } from "mobx-react";
 import React from "react";
 import cardType from "../../../stores/Card";
 import Card from "../card/Card";
@@ -17,7 +16,7 @@ interface PlayerProps {
     sumOfPersonalBetsInThisRound: number;
 }
 
-const Player: React.FC<PlayerProps> = observer((
+const Player: React.FC<PlayerProps> = (
     {
         playerId,
         name,
@@ -53,5 +52,5 @@ const Player: React.FC<PlayerProps> = observer((
             </div>
         </div>
     );
-});
+};
 export default Player;
