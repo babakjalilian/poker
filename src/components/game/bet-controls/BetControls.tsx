@@ -4,99 +4,60 @@ import { useStore } from '../../../useStore';
 import "./BetControls.scss";
 
 
+interface BetControlsPropType {
+    sBetValue: string;
+    betValue: number;
+    minBetValue: number;
+    canSupportBet: boolean;
+    canCheck: boolean;
+    canRaise: boolean;
+    moneyLeft: number;
+    betToPayToContinue: number;
+    isGameActive: boolean;
+    updateBetValue: (e: ChangeEvent<HTMLInputElement>) => void;
+    handleFold: () => void;
+    handleBetOrCheck: () => void;
+    handleRaise: () => void;
+    handleAllIn: () => void;
+    handlePeakCards: () => void;
+    handleUnpeakCards: () => void;
+}
 
-const BetControls: React.FC = observer(() => {
-    const store = useStore();
-    const [minBetValue, setMinBetValue] = useState(store.minimumBet);
-    const [betValue, setBetValue] = useState(store.minimumBet);
-    const [sBetValue, setSBetValue] = useState(String(betValue));
-
-    useLayoutEffect(() => {
-        if (typeof store.players.activePlayer === "undefined") { return };
-        const { betToPayToContinue } = store.players.activePlayer;
-        const minimumBetAmount = betToPayToContinue;
-        setMinBetValue(minimumBetAmount);
-        setBetValue(minimumBetAmount);
-        setSBetValue(String(minimumBetAmount));
-    }, [store.players.activePlayer, store.activeRound]);
-
-    const updateBetValue = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        const target = e.target;
-        let sNewValue = target.value;
-        let value = parseInt(sNewValue);
-        if (value < 0) {
-            value = 0;
-            sNewValue = "0";
-        }
-        setBetValue(value);
-        setSBetValue(sNewValue);
-    }, []);
-
-    const handleFold = useCallback(() => {
-        if (!store.players.activePlayer) {
-            return;
-        }
-
-        store.players.activePlayer.fold(store);
-    }, [store.players.activePlayer]);
-
-    const handleBetOrCheck = useCallback(() => {
-        if (!store.players.activePlayer) {
-            return;
-        }
-
-        const { canCheck, canSupportBet } = store.players.activePlayer;
-        if (canCheck) {
-            return store.players.activePlayer.check(store);
-        }
-
-        if (canSupportBet) {
-            return store.players.activePlayer.supportBet(store);
-        }
-    }, [store.players.activePlayer]);
-
-    const handleRaise = useCallback(() => {
-        const { moneyLeft, betToPayToContinue } = store?.players?.activePlayer;
-        if (betValue === betToPayToContinue) {
-            return handleBetOrCheck();
-        }
-
-        if (betValue === moneyLeft) {
-            return handleAllIn();
-        }
-
-
-        store.players.activePlayer.raiseBet(store, betValue);
-    }, [store.players.activePlayer, betValue]);
-
-    const handleAllIn = useCallback(() => {
-        store.players.activePlayer.allIn(store);
-    }, [store.players.activePlayer]);
-
-    const handlePeakCards = useCallback(() => {
-        store.players.activePlayer.cards.forEach(card => card.show());
-    }, [store.players.activePlayer]);
-
-    const handleUnpeakCards = useCallback(() => {
-        store.players?.activePlayer?.hideCards()
-    }, [store.players.activePlayer]);
-
-
+const BetControls: React.FC<BetControlsPropType> = observer((
+    {
+        sBetValue,
+        betValue,
+        minBetValue,
+        canSupportBet,
+        canCheck,
+        canRaise,
+        moneyLeft,
+        betToPayToContinue,
+        isGameActive,
+        updateBetValue,
+        handleFold,
+        handleBetOrCheck,
+        handleRaise,
+        handleAllIn,
+        handlePeakCards,
+        handleUnpeakCards
+    }
+) => {
     return (
-        store.isGameActive && <div className='bet-controls-container noSelect'>
+        isGameActive && <div className='bet-controls-container noSelect'>
             <div className="bet-amount-container">
                 <div className="min-bet-value-label">min</div>
                 <div className="bet-amount">
                     <input type="number" id="betAmountInput" value={sBetValue} onChange={updateBetValue} />
                     <div className='slider-container'>
-                        <input type="range" min={minBetValue} max={store.players.activePlayer?.moneyLeft} value={betValue} id="betAmountSlider" onChange={updateBetValue} />
+                        <input type="range" min={minBetValue} max={moneyLeft} value={betValue} id="betAmountSlider" onChange={updateBetValue} />
                     </div>
                 </div>
                 <div className="max-bet-value-label">max</div>
             </div>
             <div className="action-buttons-container">
                 <div className='btn-container'>
-                    {(betValue > store.players?.activePlayer.betToPayToContinue && store.players?.activePlayer?.canRaise) &&
+                    {(betValue > betToPayToContinue && canRaise) &&
                         <div id="raiseBtn" onClick={handleRaise} className='control-btn noSelect'>
                             RAISE {betValue}
                         </div>
@@ -106,14 +67,14 @@ const BetControls: React.FC = observer(() => {
                     <div id="foldBtn" className='control-btn noSelect' onClick={handleFold} >FOLD</div>
                 </div>
                 <div className='btn-container'>
-                    {(store.players.activePlayer?.canSupportBet || store.players.activePlayer?.canCheck) &&
+                    {(canSupportBet || canCheck) &&
                         <div id="betCheckBtn" className='control-btn noSelect' onClick={handleBetOrCheck}>
-                            {store.players.activePlayer?.canCheck ? "CHECK" : "BET"} {store.players.activePlayer?.betToPayToContinue}
+                            {canCheck ? "CHECK" : "BET"} {betToPayToContinue}
                         </div>
                     }
                 </div>
                 <div className='btn-container'>
-                    {store.players?.activePlayer?.moneyLeft > 0 && <div id="allInBtn" className='control-btn noSelect' onClick={handleAllIn} >ALL IN</div>}
+                    {moneyLeft > 0 && <div id="allInBtn" className='control-btn noSelect' onClick={handleAllIn} >ALL IN</div>}
                 </div>
             </div>
             <div className="peak-cards-btn-container">

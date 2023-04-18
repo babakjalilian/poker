@@ -1,10 +1,10 @@
 import { observer } from "mobx-react";
 import React from "react";
-import BetControls from "./bet-controls/BetControls";
 import GameLog from "./game-log/GameLog";
 import GameTable from "./game-table/GameTable";
 import "./Game.scss";
 import Player from "./player/Player";
+import BetControlsContainer from "../../modules/BetControlsContainer";
 
 interface GameProps {
     name: string;
@@ -40,7 +40,7 @@ const Game: React.FC<GameProps> = observer(() => {
             <div className="game-log-container">
                 <GameLog></GameLog>
             </div>
-            <BetControls />
+            <BetControlsContainer />
         </>
     );
 });
