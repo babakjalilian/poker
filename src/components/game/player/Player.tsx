@@ -32,20 +32,20 @@ const Player: React.FC<PlayerProps> = (
 ) => {
     return (
         <div className={`player noSelect  player-${playerId} ${hasFolded ? "folded" : ""}`}>
-            <div className={`playerInfo ${isActivePlayer ? "activePlayerInfo" : ""} ${isWinner ? "winnerPlayerInfo" : ""}`}>
-                <div className={`playerInfoBody`}>
-                    <div className="playerCards">
+            <div className={`player-info ${isActivePlayer ? "player-info-active" : ""} ${isWinner ? "player-info-winner" : ""}`}>
+                <div className={`player-info-body`}>
+                    <div className="player-cards">
                         {
                             cards.map(({ suitName, suitSymbol, cardName, cardSymbol, isFaded, isHidden }) => {
                                 return <Card key={`${suitName}_${cardName}`} value={cardSymbol} suit={suitSymbol} isFaded={isFaded} isHidden={isHidden} />
                             })
                         }
                     </div>
-                    <div className="playerName">{name}</div>
-                    <div className="playerMoneyLeft">{moneyLeft} €</div>
+                    <div className="player-name">{name}</div>
+                    <div className="player-money-left">{moneyLeft} €</div>
                 </div>
             </div>
-            <div className="playerBet">
+            <div className="player-bet">
                 {sumOfPersonalBetsInThisRound} €
                 {isBigBlindPlayer && <div className='big-blind'>BIG BLIND</div>}
                 {isSmallBlindPlayer && <div className='small-blind'>SMALL BLIND</div>}

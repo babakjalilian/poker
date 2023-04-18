@@ -1,4 +1,3 @@
-import { observer } from "mobx-react";
 import React from "react";
 import Link from "../link-button/Link";
 import "./Setting.scss";
@@ -38,7 +37,7 @@ const Settings: React.FC<SettingProps> = (
             <div className="settings">
                 <div className="table-setting">
                     <div>Player count:</div>
-                    <div className="playerCount">
+                    <div className="player-count">
                         {
                             availablePlayerAmount.map(count => {
                                 return (

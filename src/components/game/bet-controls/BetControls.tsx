@@ -51,29 +51,29 @@ const BetControls: React.FC<BetControlsProps> = observer((
                 <div className="max-bet-value-label">max</div>
             </div>
             <div className="action-buttons-container">
-                <div className='btn-container'>
+                <div className='control-btn-container'>
                     {(betValue > betToPayToContinue && canRaise) &&
                         <div id="raiseBtn" onClick={handleRaise} className='control-btn noSelect'>
                             RAISE {betValue}
                         </div>
                     }
                 </div>
-                <div className='btn-container'>
+                <div className='control-btn-container'>
                     <div id="foldBtn" className='control-btn noSelect' onClick={handleFold} >FOLD</div>
                 </div>
-                <div className='btn-container'>
+                <div className='control-btn-container'>
                     {(canSupportBet || canCheck) &&
                         <div id="betCheckBtn" className='control-btn noSelect' onClick={handleBetOrCheck}>
                             {canCheck ? "CHECK" : "BET"} {betToPayToContinue}
                         </div>
                     }
                 </div>
-                <div className='btn-container'>
+                <div className='control-btn-container'>
                     {moneyLeft > 0 && <div id="allInBtn" className='control-btn noSelect' onClick={handleAllIn} >ALL IN</div>}
                 </div>
             </div>
             <div className="peak-cards-btn-container">
-                <div className='btn-container'>
+                <div className='control-btn-container'>
                     <div className="control-btn noSelect" id="peakCardsBtn" onMouseDown={handlePeakCards} onMouseUp={handleUnpeakCards} onMouseLeave={handleUnpeakCards} >PEAK CARDS</div>
                 </div>
             </div>

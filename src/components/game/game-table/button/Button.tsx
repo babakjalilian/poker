@@ -20,11 +20,11 @@ const Button: React.FC = observer(
         )
         return (
             <div className="container" onClick={handleClick}>
-                <div className="spinContainer">
+                <div className="spin-container">
                     <div className="wrapper">
-                        <div className="spinButton">
-                            <div className="spinFrame"></div>
-                            <div className="spinBlur">
+                        <div className="spin-button">
+                            <div className="spin-frame"></div>
+                            <div className="spin-blur">
                                 {!store.mustGameBeRestarted && <div className="play-icon" ></div>}
                                 {store.mustGameBeRestarted && <div className="pause-icon" >&#8634;</div>}
                             </div>
