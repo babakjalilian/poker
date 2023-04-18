@@ -1,9 +1,9 @@
 import { makeAutoObservable } from "mobx";
 import { BET_ACTION, COMBINATIONS, COMBINATION_NAMES_HUMAN, POKER_ROUNDS } from './Consts';
-import { Card } from "./modules/Card";
-import { Deck } from "./modules/Deck";
-import { Player } from "./modules/Player";
-import { Players } from "./modules/Players";
+import { Card } from "./stores/Card";
+import { Deck } from "./stores/Deck";
+import { Player } from "./stores/Player";
+import { Players } from "./stores/Players";
 import { PageName } from "./types";
 
 class Store {

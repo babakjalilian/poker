@@ -1,6 +1,6 @@
 import { BET_ACTION, COMBINATIONS } from "./Consts";
-import { Card } from "./modules/Card";
-import { Player } from "./modules/Player";
+import { Card } from "./stores/Card";
+import { Player } from "./stores/Player";
 import Store from "./Store";
 
 export type PageName = "Menu" | "Game" | "Settings";
