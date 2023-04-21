@@ -23,11 +23,11 @@
     opacity: 0.3;
   }
 
-  .playerInfo {
+  .player-info {
     padding: 5px;
     border-radius: 10px;
 
-    .playerInfoBody {
+    .player-info-body {
       background-image: linear-gradient(41deg, #3e3e3e 0%, #cccccc 74%);
       box-shadow: 0 3px 14px #000;
       border-radius: 8px;
@@ -35,20 +35,20 @@
       position: relative;
       overflow: hidden;
 
-      .playerCards {
+      .player-cards {
         display: flex;
         justify-content: center;
         gap: 5px;
       }
 
-      .playerName {
+      .player-name {
         font-size: 1.2em;
         margin: 10px 10px 7px 10px;
         text-align: center;
         color: white;
       }
 
-      .playerMoneyLeft {
+      .player-money-left {
         font-size: 1em;
         font-weight: bold;
         margin-bottom: 2px;
@@ -58,12 +58,12 @@
       }
     }
 
-    &.activePlayerInfo,
-    &.winnerPlayerInfo {
+    &.player-info-active,
+    &.player-info-winner {
       color: black;
       margin-bottom: 8px;
       transform: scale(1.05);
-      .playerInfoBody {
+      .player-info-body {
         background-image: none;
         box-shadow: 0px 12px 13px 8px rgba(0, 0, 0, 0.3);
 
@@ -79,17 +79,17 @@
       }
     }
 
-    &.activePlayerInfo .playerInfoBody::before {
+    &.player-info-active .player-info-body::before {
       background: linear-gradient(268deg, rgba(0, 0, 0, 0) 35%, rgba(255, 255, 255, 0.6) 50%, rgba(0, 0, 0, 0) 65%)
         rgba(98, 245, 71, 0.9);
     }
-    &.winnerPlayerInfo .playerInfoBody::before {
+    &.player-info-winner .player-info-body::before {
       background: linear-gradient(268deg, rgba(0, 0, 0, 0) 33%, rgba(255, 255, 255, 0.9) 50%, rgba(0, 0, 0, 0) 66%)
         #f7bf22;
     }
   }
 
-  .playerBet {
+  .player-bet {
     font-size: 1em;
     font-weight: bold;
     text-align: center;
@@ -130,8 +130,8 @@
   }
 }
 
-.player-1 .playerBet,
-.player-3 .playerBet {
+.player-1 .player-bet,
+.player-3 .player-bet {
   display: flex;
   flex-direction: column;
   justify-content: center;

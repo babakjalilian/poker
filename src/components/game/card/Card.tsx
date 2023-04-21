@@ -31,6 +31,7 @@ const Card: React.FC<CardProps> = ({ value, suit, isFaded = false, isHidden = fa
                     <div className="card-value">{value}</div>
                     <div className="card-suit">{suit}</div>
                 </div>
+                <div className="card-back"></div>
             </div>
         </div>
     );

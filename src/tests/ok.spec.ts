@@ -1,4 +1,4 @@
-import { Players } from "../modules/Players";
+import { Players } from "../stores/Players";
 
 
 

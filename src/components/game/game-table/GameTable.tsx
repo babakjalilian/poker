@@ -10,9 +10,9 @@ import "./GameTable.scss";
 const GameTable: React.FC = observer(() => {
     const store = useStore();
     return (
-        <div className="gameTable noSelect">
+        <div className="game-board noSelect">
             {store.isRoundFinished && <Button />}
-            <div className="tableCardsContainer">
+            <div className="board-cards-container">
                 <div className="placeholder-container">
                     <div className="card-placeholder"></div>
                     <div className="card-placeholder"></div>
@@ -30,10 +30,10 @@ const GameTable: React.FC = observer(() => {
                 })}
                 <br />
             </div>
-            <div className="tableInfo">
+            <div className="pot-info">
                 {store?.sumOfBets} €
             </div>
-            <div className="gameInfo">
+            <div className="game-info">
                 <ul>
                     {store?.gameInfo?.map((message) => (<li key={Math.random()}>{message}</li>))}
                 </ul>

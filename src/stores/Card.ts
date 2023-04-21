@@ -15,7 +15,7 @@ import {
     SuitSymbol
 } from "../types";
 
-export class Card implements CardType {
+export default class Card implements CardType {
     suitName: SuitName = suitNames[0];
     suitSymbol: SuitSymbol;
     cardName = cardNames[0];

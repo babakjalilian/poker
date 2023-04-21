@@ -1,12 +1,7 @@
 :root {
-  --btn-blue-base: #244767;
-  --btn-blue-hover: #1b4266;
   --bg-red: #702424;
   --btn-red: #a13030;
   --btn-red-hover: #9f0000;
-  --btn-green-base: #276627;
-  --btn-green-hover: #368536;
-  --bg-green: #164b16;
   --bg-darkgreen: #1a341a;
   --bg-gold: #cf900e;
   --transparent: #ffffff00;
@@ -43,10 +38,3 @@ body {
   left: 0;
   z-index: 2;
 }
-
-.gameTable,
-.card-container {
-  //   transform: scale(0.6);
-}
-/* @media screen and (max-width: 1200px) {
-} */

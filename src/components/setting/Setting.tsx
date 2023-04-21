@@ -1,67 +1,35 @@
-import { observer } from "mobx-react";
-import React, { ChangeEvent, useCallback, useState } from "react";
-import { useStore } from "../../useStore";
+import React from "react";
 import Link from "../link-button/Link";
 import "./Setting.scss";
 
 interface SettingProps {
-    name: string;
+    amountOfHumanPlayers: number;
+    startingMoney: string;
+    minBet: string;
+    message: string;
+    areSettingsValid: boolean;
+    setAmountOfHumanPlayers: (count) => void;
+    updateStartingMoney: (startingMoney: number) => void;
+    updateMinimumBet: (minBetValue: number) => void;
+    onPressPlay: () => void;
+
 }
 
 const availablePlayerAmount = [2, 3, 4];
 
-const Settings: React.FC<SettingProps> = observer(() => {
-    const store = useStore();
-    const [areSettingsValid, setAreSettingsValid] = useState(true);
-    const [message, setMessage] = useState("good to go!");
-    const [startingMoney, setStartingMoney] = useState(String(store.initialDeposit));
-    const [minBet, setMinBet] = useState(String(store.minimumBet));
-
-    const { amountOfHumanPlayers } = store;
-
-    const startTheGame = useCallback(() => {
-        store.startInitialGame();
-    }, []);
-
-    const updateStartingMoney = (e: ChangeEvent<HTMLInputElement>) => {
-        let newValue = parseInt(e.target.value) || "";
-        setStartingMoney(newValue.toString());
-        if (newValue <= 0) {
-            setMessage("starting money should be greater than 0!")
-            setAreSettingsValid(false);
-            store.setInitialDeposit(0);
-        } else if (newValue > 0 && newValue < +minBet * 2) {
-            setMessage("starting money should be greater than or equal( 2 x small blind) !")
-            setAreSettingsValid(false);
-            store.setInitialDeposit(0);
-        } else {
-            setMessage("good to go!")
-            setAreSettingsValid(true);
-            store.setInitialDeposit(+newValue);
-        }
-    };
-
-    const updateMinimumBet = (e: ChangeEvent<HTMLInputElement>) => {
-        let newValue = parseInt(e.target.value) || "";
-        setMinBet(String(newValue));
-        if (newValue <= 0) {
-            setMessage("small blind should be greater than 0!")
-            setAreSettingsValid(false);
-            store.setMinimumBet(0);
-        } else if (newValue > 0 && +newValue * 2 > +startingMoney) {
-            setMessage("starting money should be greater than or equal( 2 x small blind) !")
-            setAreSettingsValid(false);
-            store.setMinimumBet(0);
-        } else {
-            setMessage("good to go!");
-            setAreSettingsValid(true);
-            store.setMinimumBet(+newValue);
-        }
-    };
-
-    const setAmountOfHumanPlayers = useCallback((count: number) => {
-        store.setPlayersCount(count);
-    }, []);
+const Settings: React.FC<SettingProps> = (
+    {
+        amountOfHumanPlayers,
+        setAmountOfHumanPlayers,
+        updateStartingMoney,
+        updateMinimumBet,
+        onPressPlay,
+        startingMoney,
+        minBet,
+        message,
+        areSettingsValid,
+    }
+) => {
 
 
     return (
@@ -69,7 +37,7 @@ const Settings: React.FC<SettingProps> = observer(() => {
             <div className="settings">
                 <div className="table-setting">
                     <div>Player count:</div>
-                    <div className="playerCount">
+                    <div className="player-count">
                         {
                             availablePlayerAmount.map(count => {
                                 return (
@@ -84,19 +52,19 @@ const Settings: React.FC<SettingProps> = observer(() => {
                     </div>
                     <div>Starting money:</div>
                     <div>
-                        <input type="number" id="startingMoneyInput" value={startingMoney} onChange={updateStartingMoney} />
+                        <input type="number" id="startingMoneyInput" value={startingMoney} onChange={e => updateStartingMoney(+e.target.value)} />
                         {" "}€
                     </div>
                     <div>Small blind amount:</div>
                     <div>
-                        <input type="number" id="minimumBetValueInput" value={minBet} onChange={updateMinimumBet} />
+                        <input type="number" id="minimumBetValueInput" value={minBet} onChange={e => updateMinimumBet(+e.target.value)} />
                         {" "}€
                     </div>
                 </div>
                 {message}
-                {areSettingsValid ? <Link text="play the game!" page="Game" onPress={startTheGame} /> : ""}
+                {areSettingsValid ? <Link text="play the game!" page="Game" onPress={onPressPlay} /> : ""}
             </div>
         </div>
     );
-});
+};
 export default Settings;
