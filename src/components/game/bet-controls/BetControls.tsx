@@ -1,45 +1,44 @@
 import { observer } from 'mobx-react';
-import React, { ChangeEvent } from 'react';
-import "./BetControls.scss";
-
+import React, { type ChangeEvent } from 'react';
+import './BetControls.scss';
 
 interface BetControlsProps {
-    moneyLeft: number;
-    canSupportBet: boolean;
-    canCheck: boolean;
-    canRaise: boolean;
-    betToPayToContinue: number;
-    betValue: number;
-    isGameActive: boolean;
-    updateBetValue: (e: ChangeEvent<HTMLInputElement>) => void;
-    handleFold: () => void;
-    handleBetOrCheck: () => void;
-    handleRaise: () => void;
-    handleAllIn: () => void;
-    handlePeakCards: () => void;
-    handleUnpeakCards: () => void;
+  moneyLeft: number
+  canSupportBet: boolean
+  canCheck: boolean
+  canRaise: boolean
+  betToPayToContinue: number
+  betValue: number
+  isGameActive: boolean
+  updateBetValue: (e: ChangeEvent<HTMLInputElement>) => void
+  handleFold: () => void
+  handleBetOrCheck: () => void
+  handleRaise: () => void
+  handleAllIn: () => void
+  handlePeakCards: () => void
+  handleUnpeakCards: () => void
 }
 
 const BetControls: React.FC<BetControlsProps> = observer((
-    {
-        moneyLeft,
-        canSupportBet,
-        canCheck,
-        canRaise,
-        betToPayToContinue,
-        betValue,
-        isGameActive,
-        updateBetValue,
-        handleFold,
-        handleBetOrCheck,
-        handleRaise,
-        handleAllIn,
-        handlePeakCards,
-        handleUnpeakCards
-    }
+  {
+    moneyLeft,
+    canSupportBet,
+    canCheck,
+    canRaise,
+    betToPayToContinue,
+    betValue,
+    isGameActive,
+    updateBetValue,
+    handleFold,
+    handleBetOrCheck,
+    handleRaise,
+    handleAllIn,
+    handlePeakCards,
+    handleUnpeakCards
+  }
 ) => {
-    return (
-        isGameActive && <div className='bet-controls-container noSelect'>
+  return (
+    isGameActive && <div className='bet-controls-container noSelect'>
             <div className="bet-amount-container">
                 <div className="min-bet-value-label">min</div>
                 <div className="bet-amount">
@@ -64,7 +63,7 @@ const BetControls: React.FC<BetControlsProps> = observer((
                 <div className='control-btn-container'>
                     {(canSupportBet || canCheck) &&
                         <div id="betCheckBtn" className='control-btn noSelect' onClick={handleBetOrCheck}>
-                            {canCheck ? "CHECK" : "BET"} {betToPayToContinue}
+                            {canCheck ? 'CHECK' : 'BET'} {betToPayToContinue}
                         </div>
                     }
                 </div>
@@ -78,6 +77,6 @@ const BetControls: React.FC<BetControlsProps> = observer((
                 </div>
             </div>
         </div>
-    )
+  );
 });
 export default BetControls;

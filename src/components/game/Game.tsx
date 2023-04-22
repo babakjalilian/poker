@@ -1,17 +1,16 @@
-import React from "react";
-import BetControlsContainer from "../../modules/BetControlsContainer";
-import PlayerContainer from "../../modules/PlayerContainer";
-import GameLog from "./game-log/GameLog";
-import GameTable from "./game-table/GameTable";
-import "./Game.scss";
+import React from 'react';
+import BetControlsContainer from '../../modules/BetControlsContainer';
+import PlayerContainer from '../../modules/PlayerContainer';
+import GameLog from './game-log/GameLog';
+import GameTable from './game-table/GameTable';
+import './Game.scss';
 
 interface GameProps {
-    name: string;
+  name: string
 }
 
 const Game: React.FC<GameProps> = () => {
-
-    return (
+  return (
         <>
             <div className="poker-container">
                 <div className="poker-table"></div>
@@ -41,6 +40,6 @@ const Game: React.FC<GameProps> = () => {
             </div>
             <BetControlsContainer />
         </>
-    );
+  );
 };
 export default Game;

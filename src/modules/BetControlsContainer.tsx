@@ -1,76 +1,74 @@
 import { observer } from 'mobx-react';
-import React, { ChangeEvent, useCallback, useLayoutEffect, useState } from 'react';
-import { useStore } from '../useStore';
+import React, { useCallback, useLayoutEffect, useState, type ChangeEvent } from 'react';
 import BetControls from '../components/game/bet-controls/BetControls';
-
+import { useStore } from '../useStore';
 
 const BetControlsContainer: React.FC = observer(() => {
-    const store = useStore();
-    const [betValue, setBetValue] = useState(store.minimumBet);
-    const { isGameActive, players: { activePlayer } } = store;
-    const { betToPayToContinue: minimumBetAmount } = activePlayer;
+  const store = useStore();
+  const [betValue, setBetValue] = useState(store.minimumBet);
+  const { isGameActive, players: { activePlayer } } = store;
+  const { betToPayToContinue: minimumBetAmount } = activePlayer;
 
-    useLayoutEffect(() => {
-        if (typeof activePlayer === "undefined") { return };
-        setBetValue(minimumBetAmount);
-    }, [activePlayer, store.activeRound]);
+  useLayoutEffect(() => {
+    if (typeof activePlayer === 'undefined') { return; };
+    setBetValue(minimumBetAmount);
+  }, [activePlayer, store.activeRound]);
 
-    const updateBetValue = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        let newValue = +e.target.value;
-        if (newValue < 0) {
-            newValue = 0;
-        }
-        setBetValue(newValue);
-    }, []);
+  const updateBetValue = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    let newValue = +e.target.value;
+    if (newValue < 0) {
+      newValue = 0;
+    }
+    setBetValue(newValue);
+  }, []);
 
-    const handleFold = useCallback(() => {
-        if (!activePlayer) {
-            return;
-        }
+  const handleFold = useCallback(() => {
+    if (activePlayer === undefined) {
+      return;
+    }
 
-        activePlayer.fold(store);
-    }, [activePlayer]);
+    activePlayer.fold(store);
+  }, [activePlayer]);
 
-    const handleBetOrCheck = useCallback(() => {
-        if (!activePlayer) {
-            return;
-        }
+  const handleBetOrCheck = useCallback(() => {
+    if (activePlayer === undefined) {
+      return;
+    }
 
-        if (activePlayer.canCheck) {
-            return activePlayer.check(store);
-        }
+    if (activePlayer.canCheck) {
+      activePlayer.check(store); return;
+    }
 
-        if (activePlayer.canSupportBet) {
-            return activePlayer.supportBet(store);
-        }
-    }, [activePlayer]);
+    if (activePlayer.canSupportBet) {
+      activePlayer.supportBet(store);
+    }
+  }, [activePlayer]);
 
-    const handleRaise = useCallback(() => {
-        if (betValue === activePlayer.betToPayToContinue) {
-            return handleBetOrCheck();
-        }
+  const handleRaise = useCallback(() => {
+    if (betValue === activePlayer.betToPayToContinue) {
+      handleBetOrCheck(); return;
+    }
 
-        if (betValue === activePlayer.moneyLeft) {
-            return handleAllIn();
-        }
+    if (betValue === activePlayer.moneyLeft) {
+      handleAllIn(); return;
+    }
 
+    activePlayer.raiseBet(store, betValue);
+  }, [activePlayer, betValue]);
 
-        activePlayer.raiseBet(store, betValue);
-    }, [activePlayer, betValue]);
+  const handleAllIn = useCallback(() => {
+    activePlayer.allIn(store);
+  }, [activePlayer]);
 
-    const handleAllIn = useCallback(() => {
-        activePlayer.allIn(store);
-    }, [activePlayer]);
+  const handlePeakCards = useCallback(() => {
+    activePlayer.cards.forEach(card => { card.show(); });
+  }, [activePlayer]);
 
-    const handlePeakCards = useCallback(() => {
-        activePlayer.cards.forEach(card => card.show());
-    }, [activePlayer]);
+  const handleUnpeakCards = useCallback(() => {
+    activePlayer?.hideCards();
+  }, [activePlayer]);
 
-    const handleUnpeakCards = useCallback(() => {
-        activePlayer?.hideCards()
-    }, [activePlayer]);
-
-    return (
+  return (
         <BetControls
             betValue={betValue}
             canSupportBet={activePlayer.canSupportBet}
@@ -87,7 +85,6 @@ const BetControlsContainer: React.FC = observer(() => {
             handlePeakCards={handlePeakCards}
             handleUnpeakCards={handleUnpeakCards}
         ></BetControls>
-    )
-
+  );
 });
 export default BetControlsContainer;

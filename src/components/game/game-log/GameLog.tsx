@@ -1,19 +1,19 @@
 import { observer } from 'mobx-react';
 import React from 'react';
 import { useStore } from '../../../useStore';
-import "./GameLog.scss";
+import './GameLog.scss';
 
 const GameLog: React.FC = observer(() => {
-    const store = useStore()
-    return (
+  const store = useStore();
+  return (
         <div className='game-log' id="gameLog">
             {
                 store.gameLog.map((logEvent, i) => {
-                    return <span key={i}>{logEvent} </span>
+                  return <span key={i}>{logEvent} </span>;
                 })
             }
 
         </div>
-    )
+  );
 });
 export default GameLog;
