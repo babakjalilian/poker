@@ -23,7 +23,7 @@ const Game: React.FC<GameProps> = () => {
                     <PlayerContainer playerId={1} />
                 </div>
 
-                <div className="game-table">
+                <div className="game-board-container">
                     <GameTable />
                 </div>
 

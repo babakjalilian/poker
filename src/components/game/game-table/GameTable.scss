@@ -6,7 +6,7 @@
   position: relative;
   width: 370px;
   height: 180px;
-  border-radius: 500px;
+  border-radius: 70px;
   padding-top: 1.5rem;
   box-sizing: border-box;
   background-color: var(--bg-darkgreen);
@@ -42,7 +42,7 @@
     height: 75px;
     padding-left: 50px;
     &::before {
-      content: "";
+      content: '';
       min-height: 75px;
     }
     .card {
