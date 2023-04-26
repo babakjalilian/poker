@@ -1,12 +1,12 @@
 import { observer } from 'mobx-react';
 import React from 'react';
+import './App.scss';
 import Game from './components/game/Game';
 import Link from './components/link-button/Link';
 import Menu from './components/menu/Menu';
 import SwitchView from './components/switch-view/SwitchView';
 import SettingsContainer from './modules/SettingContainer';
 import { useStore } from './useStore';
-import './App.scss';
 
 const App: React.FC = observer(() => {
   const store = useStore();

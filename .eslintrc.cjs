@@ -3,6 +3,11 @@ module.exports = {
     browser: true,
     es2021: true
   },
+  settings: {
+    react: {
+      version: 'detect'
+    }
+  },
   extends: ['plugin:react/recommended', 'standard-with-typescript'],
   overrides: [],
   parserOptions: {
@@ -12,6 +17,7 @@ module.exports = {
   },
   plugins: ['react'],
   rules: {
-    '@typescript-eslint/semi': ['error', 'always']
+    '@typescript-eslint/semi': ['error', 'always'],
+    'react/react-in-jsx-scope': 'off'
   }
 };

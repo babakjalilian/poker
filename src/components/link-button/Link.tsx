@@ -13,7 +13,7 @@ const Link: React.FC<LinkProps> = ({ text, page, onPress }) => {
   const store = useStore();
   const handleClick = useCallback(() => {
     store.setCurrentPage(page);
-    onPress !== undefined && onPress();
+    onPress?.();
   }, []);
 
   return (

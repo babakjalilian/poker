@@ -64,6 +64,6 @@ export function getGameEventText (name: string, betAmount: number, betAction: BE
   }
 }
 
-function assertNever (betAction: never): never {
+function assertNever (betAction: string): never {
   throw new Error(`unsupported betAction: "${betAction}"`);
 }

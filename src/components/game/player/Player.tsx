@@ -1,8 +1,8 @@
+import { observer } from 'mobx-react';
 import React from 'react';
 import type cardType from '../../../stores/Card';
 import Card from '../card/Card';
 import './Player.scss';
-import { observer } from 'mobx-react';
 
 interface PlayerProps {
   playerId: 0 | 1 | 2 | 3
@@ -48,8 +48,8 @@ const Player: React.FC<PlayerProps> = observer((
             </div>
             <div className="player-bet">
                 {sumOfPersonalBetsInThisRound} €
-                {isBigBlindPlayer && <div className='big-blind'>BIG BLIND</div>}
-                {isSmallBlindPlayer && <div className='small-blind'>SMALL BLIND</div>}
+                {isBigBlindPlayer && <div className='big-blind'>BB</div>}
+                {isSmallBlindPlayer && <div className='small-blind'>SB</div>}
             </div>
         </div>
   );
