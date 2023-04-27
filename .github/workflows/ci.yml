@@ -1,4 +1,4 @@
-name: CI
+name: Github Action and Chromatic
 
 on:
   push:
