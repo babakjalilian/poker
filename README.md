@@ -32,6 +32,7 @@ This online application is a [Hotseat](https://en.wikipedia.org/wiki/Hotseat_%28
 - [React](https://reactjs.org/)
 - [TypeScript](https://typescriptlang.org/)
 - [MobX](https://mobx.js.org/README.html 'MobX')
+- [SCSS](https://sass-lang.com/ 'SCSS')
 
 ## Getting Started
 
