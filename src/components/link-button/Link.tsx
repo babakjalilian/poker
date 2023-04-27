@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
+import { useStore } from '../../hooks/useStore';
 import { type PageName } from '../../types';
-import { useStore } from '../../useStore';
 import './Link.scss';
 
 interface LinkProps {
@@ -17,9 +17,9 @@ const Link: React.FC<LinkProps> = ({ text, page, onPress }) => {
   }, []);
 
   return (
-        <div className="btn" onClick={handleClick}>
-            {text}
-        </div>
+    <div className="btn" onClick={handleClick}>
+      {text}
+    </div>
   );
 };
 export default Link;

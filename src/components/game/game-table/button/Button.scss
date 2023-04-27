@@ -4,16 +4,12 @@
   border-radius: 50%;
   position: absolute;
   transform: translateY(-50%);
-  top: 50%;
+  top: -4%;
   z-index: 10;
   box-sizing: border-box;
   z-index: 2;
   display: grid;
-  opacity: 0.6;
   cursor: pointer;
-  &:hover {
-    opacity: 0.9;
-  }
 }
 
 .play-icon {
@@ -96,10 +92,9 @@
     left: 50%;
     top: 50%;
     border-radius: 50%;
-    width: 85%;
-    height: 85%;
+    width: 88%;
+    height: 88%;
     backdrop-filter: blur(4px);
-    background-color: #00ff7d;
     transform: translateX(-50%) translateY(-50%);
     display: flex;
     justify-content: center;

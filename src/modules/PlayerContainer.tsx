@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import React from 'react';
 import Player from '../components/game/player/Player';
-import { useStore } from '../useStore';
+import { useStore } from '../hooks/useStore';
 
 interface PlayerContainerProps {
   playerId: 0 | 1 | 2 | 3
@@ -24,18 +24,18 @@ const PlayerContainer: React.FC<PlayerContainerProps> = observer(({ playerId }) 
   const { name, moneyLeft, hasFolded, sumOfPersonalBetsInThisRound, cards } = playerAtThisSlot;
 
   return (
-        <Player
-            playerId={playerId}
-            name={name}
-            hasFolded={hasFolded}
-            isActivePlayer={isActivePlayer}
-            isWinner={isWinnerPlayer}
-            isBigBlindPlayer={isBigBlindPlayer}
-            isSmallBlindPlayer={isSmallBlindPlayer}
-            cards={cards}
-            moneyLeft={moneyLeft}
-            sumOfPersonalBetsInThisRound={sumOfPersonalBetsInThisRound}
-        />
+    <Player
+      playerId={playerId}
+      name={name}
+      hasFolded={hasFolded}
+      isActivePlayer={isActivePlayer}
+      isWinner={isWinnerPlayer}
+      isBigBlindPlayer={isBigBlindPlayer}
+      isSmallBlindPlayer={isSmallBlindPlayer}
+      cards={cards}
+      moneyLeft={moneyLeft}
+      sumOfPersonalBetsInThisRound={sumOfPersonalBetsInThisRound}
+    />
   );
 });
 export default PlayerContainer;

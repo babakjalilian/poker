@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Card from '../components/game/card/Card';
-import { cardSymbols, suitSymbols } from '../Consts';
+import { cardSymbols, suitSymbols } from '../../../Consts';
+import Card from './Card';
 
 const meta: Meta<typeof Card> = {
   title: 'Example/Card',
