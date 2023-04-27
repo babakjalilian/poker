@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Player from '../components/game/player/Player';
-import Card from '../stores/Card';
+import Card from '../../../stores/Card';
+import Player from './Player';
 
 const meta: Meta<typeof Player> = {
   title: 'Example/Player',
@@ -8,9 +8,9 @@ const meta: Meta<typeof Player> = {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-            <div style={{ position: 'absolute', fontFamily: 'Arial, Helvetica, sans-serif' }}>
-                <Story />
-            </div>
+      <div style={{ position: 'absolute', fontFamily: 'Arial, Helvetica, sans-serif' }}>
+        <Story />
+      </div>
     )
   ]
 };

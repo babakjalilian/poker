@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import React, { useCallback, useLayoutEffect, useState, type ChangeEvent } from 'react';
 import BetControls from '../components/game/bet-controls/BetControls';
-import { useStore } from '../useStore';
+import { useStore } from '../hooks/useStore';
 
 const BetControlsContainer: React.FC = observer(() => {
   const store = useStore();
@@ -69,22 +69,22 @@ const BetControlsContainer: React.FC = observer(() => {
   }, [activePlayer]);
 
   return (
-        <BetControls
-            betValue={betValue}
-            canSupportBet={activePlayer.canSupportBet}
-            canCheck={activePlayer.canCheck}
-            canRaise={activePlayer.canRaise}
-            moneyLeft={activePlayer.moneyLeft}
-            betToPayToContinue={activePlayer.betToPayToContinue}
-            isGameActive={isGameActive}
-            updateBetValue={updateBetValue}
-            handleFold={handleFold}
-            handleBetOrCheck={handleBetOrCheck}
-            handleRaise={handleRaise}
-            handleAllIn={handleAllIn}
-            handlePeakCards={handlePeakCards}
-            handleUnpeakCards={handleUnpeakCards}
-        ></BetControls>
+    <BetControls
+      betValue={betValue}
+      canSupportBet={activePlayer.canSupportBet}
+      canCheck={activePlayer.canCheck}
+      canRaise={activePlayer.canRaise}
+      moneyLeft={activePlayer.moneyLeft}
+      betToPayToContinue={activePlayer.betToPayToContinue}
+      isGameActive={isGameActive}
+      updateBetValue={updateBetValue}
+      handleFold={handleFold}
+      handleBetOrCheck={handleBetOrCheck}
+      handleRaise={handleRaise}
+      handleAllIn={handleAllIn}
+      handlePeakCards={handlePeakCards}
+      handleUnpeakCards={handleUnpeakCards}
+    ></BetControls>
   );
 });
 export default BetControlsContainer;

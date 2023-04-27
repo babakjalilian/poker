@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import React, { useCallback, useState } from 'react';
 import Settings from '../components/setting/Setting';
-import { useStore } from '../useStore';
+import { useStore } from '../hooks/useStore';
 
 const SettingsContainer: React.FC<{ name: string }> = observer(() => {
   const store = useStore();
@@ -56,18 +56,18 @@ const SettingsContainer: React.FC<{ name: string }> = observer(() => {
   }, []);
 
   return (
-        <Settings
-            areSettingsValid={areSettingsValid}
-            message={message}
-            startingMoney={startingMoney}
-            minBet={minBet}
-            amountOfHumanPlayers={amountOfHumanPlayers}
-            onPressPlay={startTheGame}
-            updateStartingMoney={updateStartingMoney}
-            updateMinimumBet={updateMinimumBet}
-            setAmountOfHumanPlayers={setAmountOfHumanPlayers}
+    <Settings
+      areSettingsValid={areSettingsValid}
+      message={message}
+      startingMoney={startingMoney}
+      minBet={minBet}
+      amountOfHumanPlayers={amountOfHumanPlayers}
+      onPressPlay={startTheGame}
+      updateStartingMoney={updateStartingMoney}
+      updateMinimumBet={updateMinimumBet}
+      setAmountOfHumanPlayers={setAmountOfHumanPlayers}
 
-        />
+    />
   );
 });
 export default SettingsContainer;
