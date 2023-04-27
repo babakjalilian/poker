@@ -25,15 +25,15 @@ const Card: React.FC<CardProps> = ({ value, suit, isFaded = false, isHidden = fa
   const redSuits: SuitSymbol[] = ['♦', '♥'];
   const isRed = redSuits.includes(suit);
   return (
-        <div className={`card ${isHidden ? 'card-hidden' : ''}`}>
-            <div className="card-inner">
-                <div className={`card-front ${isRed ? 'red' : 'black'} ${isFaded ? 'card-faded' : ''}`}>
-                    <div className="card-value">{value}</div>
-                    <div className="card-suit">{suit}</div>
-                </div>
-                <div className="card-back"></div>
-            </div>
+    <div className={`card ${isHidden ? 'card-hidden' : ''}`}>
+      <div className="card-inner">
+        <div className={`card-front ${isRed ? 'red' : 'black'} ${isFaded ? 'card-faded' : ''}`}>
+          <div className="card-value">{value}</div>
+          <div className="card-suit">{suit}</div>
         </div>
+        <div className="card-back"></div>
+      </div>
+    </div>
   );
 };
 export default Card;
