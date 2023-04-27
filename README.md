@@ -13,7 +13,7 @@
     <br />
     <a href="https://babakjalilian.github.io/poker/">View Demo</a>
     ·
-    <a href="https://64490d38c9d380ea6fbfb8a6-qyyygmgvbh.chromatic.com/">View Storybook</a>
+    <a href="https://64490d38c9d380ea6fbfb8a6-azzsuefimx.chromatic.com/">View Storybook</a>
     ·
     <a href="https://github.com/babakjalilian/poker/issues">Report Bug</a>
   </p>
