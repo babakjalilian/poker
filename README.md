@@ -6,9 +6,7 @@
     <img src="src/textures/card_image.png" alt="Logo" width="120" height="80" style="max-width: 100%;background-color: #702424;border-radius: 15px;padding: 10px;">
   </a>
 
-<h3 align="center">Texas Hold 'em</h3>
-[![Github Actions](https://github.com/babakjalilian/poker/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/babakjalilian/poker/actions/workflows/ci.yml)
-[![license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE)
+  <h3 align="center">Texas Hold 'em</h3>
 
   <p align="center">
     Bet on the go in one of the most popular types of poker!
@@ -20,6 +18,9 @@
     <a href="https://github.com/babakjalilian/poker/issues">Report Bug</a>
   </p>
 </div>
+
+[![Github Actions](https://github.com/babakjalilian/poker/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/babakjalilian/poker/actions/workflows/ci.yml)
+[![license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE)
 
 ## About the Project
 
