@@ -2,8 +2,8 @@
 
 <br />
 <div align="center">
-  <a href="https://github.com/babakjalilian/Read_Me_Test">
-    <img src="src/textures/card_image.png" alt="Logo" width="120" height="80" style="max-width: 100%;background-color: #702424;border-radius: 15px;padding: 10px;">
+  <a href="https://github.com/babakjalilian/poker">
+    <img src="src/textures/card_image.png" alt="Logo" width="150" height="100">
   </a>
 
   <h3 align="center">Texas Hold 'em</h3>
@@ -19,7 +19,7 @@
   </p>
 </div>
 
-[![Github Actions](https://github.com/babakjalilian/poker/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/babakjalilian/poker/actions/workflows/ci.yml)
+[![Github Action and Chromatic](https://github.com/babakjalilian/poker/actions/workflows/ci.yml/badge.svg)](https://github.com/babakjalilian/poker/actions/workflows/ci.yml)
 [![license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE)
 
 ## About the Project
