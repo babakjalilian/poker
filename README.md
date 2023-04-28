@@ -60,7 +60,7 @@ This online application is a [Hotseat](https://en.wikipedia.org/wiki/Hotseat_%28
 Navigate into the local repository, then:
 
 - use the following command to run unit tests:
-  ```sh
+  ```
    npm run test
   ```
 - use the following command to run UI tests on Storybook:

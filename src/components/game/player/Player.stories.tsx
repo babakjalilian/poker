@@ -19,6 +19,20 @@ export default meta;
 type Story = StoryObj<typeof Player>;
 
 const cards = [new Card('hearts', 'ace'), new Card('spades', 'king')];
+export const NormalPlayerInfo: Story = {
+  args: {
+    playerId: 0,
+    name: 'player-0',
+    hasFolded: false,
+    isActivePlayer: false,
+    isBigBlindPlayer: false,
+    isSmallBlindPlayer: false,
+    isWinner: false,
+    sumOfPersonalBetsInThisRound: 200,
+    moneyLeft: 800,
+    cards
+  }
+};
 
 export const BigBlindPlayerInfo: Story = {
   args: {
@@ -34,6 +48,7 @@ export const BigBlindPlayerInfo: Story = {
     cards
   }
 };
+
 export const SmallBlindPlayerInfo: Story = {
   args: {
     playerId: 0,
@@ -48,6 +63,7 @@ export const SmallBlindPlayerInfo: Story = {
     cards
   }
 };
+
 export const ActivePlayerInfo: Story = {
   args: {
     playerId: 0,
@@ -62,20 +78,7 @@ export const ActivePlayerInfo: Story = {
     cards
   }
 };
-export const NormalPlayerInfo: Story = {
-  args: {
-    playerId: 0,
-    name: 'player-0',
-    hasFolded: false,
-    isActivePlayer: false,
-    isBigBlindPlayer: false,
-    isSmallBlindPlayer: false,
-    isWinner: false,
-    sumOfPersonalBetsInThisRound: 200,
-    moneyLeft: 800,
-    cards
-  }
-};
+
 export const WinnerPlayerInfo: Story = {
   args: {
     playerId: 0,
@@ -90,6 +93,7 @@ export const WinnerPlayerInfo: Story = {
     cards
   }
 };
+
 export const FoldedPlayerInfo: Story = {
   args: {
     playerId: 0,

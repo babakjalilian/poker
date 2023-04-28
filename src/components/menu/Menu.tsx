@@ -18,7 +18,7 @@ const Menu: React.FC<MenuProps> = observer(() => {
   return (
     <div className="menu">
       <GameName />
-      <Link text="play!" page="Game" onPress={startTheGame} />
+      <Link text="play" page="Game" onPress={startTheGame} />
       <Link text="settings" page="Settings" />
       <img
         className="background-image"
